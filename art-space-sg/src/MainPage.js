@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import Read from './Read';
-import Demo from './Demo';
 
 
 const BASE_URL= "https://hl-art-space.herokuapp.com/"
