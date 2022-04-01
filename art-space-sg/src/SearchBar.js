@@ -3,48 +3,34 @@ import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import axios from 'axios';
+import Read from './Read';
 
-export default class SearchBar extends React.Component {
+export default function CustomizedInputBase() {
 
-    state = {
-        searchInput: '',
-        data: []
-    }
+  const [textInput, setTextState] = React.useState('');
 
-    updateFormField = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
+  const updateFormField = (e) => {
+    setTextState(e.target.value)
+  }
 
-    // async function Testing(value){
-    //     let response = await axios.get(BASE_URL + "retrieve/artwork");
-    //     console.log(response.data);
-    //     this.setState({
-    //         data: response.data
-    //     })
-    // }
-
-    render(){
-        return (
-            <Paper
-              component="form"
-              sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%'}}
-            >
-              <InputBase
-                sx={{ ml: 1, flex: 1 }}
-                placeholder="Search "
-                inputProps={{ 'aria-label': 'search google maps' }}
-                name="searchInput"
-                value={this.state.searchInput}
-                onChange={this.updateFormField}
-              />
-              <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-                <SearchIcon />
-              </IconButton>
-            </Paper>
-          );
-    }
-  
+  return (
+    <Paper
+      component="form"
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+    >
+      <InputBase
+        sx={{ ml: 1, flex: 1 }}
+        placeholder="Search"
+        inputProps={{ 'aria-label': 'search google maps' }}
+        value={textInput}
+        onChange={updateFormField}
+        
+      />
+      <IconButton type="submit" 
+                  sx={{ p: '10px' }} 
+                  aria-label="search">
+        <SearchIcon />
+      </IconButton>
+    </Paper>
+  );
 }
