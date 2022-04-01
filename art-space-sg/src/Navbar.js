@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -31,6 +31,12 @@ export default function ResponsiveAppBar() {
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const [textInputData, setTextInputData] = useState('');
+
+  const childToParent = (textInput) => {
+    setTextInputData(textInput)
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -248,7 +254,7 @@ export default function ResponsiveAppBar() {
               {/* <ListItemIcon>
                 { (index % 2 === 0 ? <InboxIcon /> : <MailIcon />) }
               </ListItemIcon> */}
-              {text === 'Search' ? <SearchBar/>: <ListItemText primary={text} />}
+              {text === 'Search' ? <SearchBar childToParent={childToParent}/>: <ListItemText primary={text} />}
               
             </ListItem>
           ))}
@@ -264,7 +270,9 @@ export default function ResponsiveAppBar() {
             </ListItem>
           ))}
         </List>
+        {textInputData}
       </Drawer>
+      
     </Box>
 
   );

@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Read from './Read';
 
-export default function CustomizedInputBase() {
+export default function SearchBar({childToParent}) {
 
   const [textInput, setTextState] = React.useState('');
 
@@ -26,9 +26,10 @@ export default function CustomizedInputBase() {
         onChange={updateFormField}
         
       />
-      <IconButton type="submit" 
-                  sx={{ p: '10px' }} 
-                  aria-label="search">
+      <IconButton sx={{ p: '10px' }} 
+                  aria-label="search"
+                  value={textInput}
+                  onClick={() => childToParent(textInput)}>
         <SearchIcon />
       </IconButton>
     </Paper>
