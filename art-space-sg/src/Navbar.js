@@ -102,16 +102,20 @@ export default function ResponsiveAppBar() {
 
   const handleDrawerOpen = () => {
     setOpen(true);
+    setAnchorElNav(false);
+    setAnchorElUser(false);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+    setAnchorElNav(false);
+    setAnchorElUser(false);
   };
 
   /****************************************************/
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box>
       <AppBar position="static" open={open}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
