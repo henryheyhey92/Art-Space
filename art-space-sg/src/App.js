@@ -11,7 +11,7 @@ function App() {
   return (
    <React.Fragment>
     <Navbar />
-    <MainImage />
+    {/* <MainImage /> */}
      <MainPage />
      <FixedBottomNavigation />
    </React.Fragment>
