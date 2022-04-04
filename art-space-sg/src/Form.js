@@ -14,6 +14,24 @@ import Stack from '@mui/material/Stack';
 
 export default function Form(props) {
 
+    function renderCatergoryOption() {
+        let options = [];
+        for (let o of props.categoryOptions.art_space) {
+            options.push(
+                    <FormControlLabel 
+                                    key={o.value}
+                                    value={o.value}
+                                    control={<Radio />} 
+                                    label={o.name} 
+                                    name='category'
+                                    onChange={props.updateFormField}
+                                    checked={props.category === o.value}
+                                    style={{ minWidth: 125 }} />
+                )
+        }
+        return options;
+    }
+
     return (
         <Box sx={{ m: 5 }}>
             <Paper elevation={3}>
@@ -27,19 +45,27 @@ export default function Form(props) {
                 >
                     <label>
                         Image link:
-                        <input className="texfieldbox" 
-                                type='text' 
-                                name='imageLinkName' 
-                                value={props.imageLink}
-                                onChange={props.updateFormField}/>
+                        <input className="textfieldbox"
+                            type='text'
+                            name='imageLinkName'
+                            value={props.imageLink}
+                            onChange={props.updateFormField} />
                     </label>
                     <label>
                         Artwork name:
-                        <input className="texfieldbox" type='text' name='name'/>
+                        <input className="textfieldbox"
+                            type='text'
+                            name='artWorkName'
+                            value={props.artWorkName}
+                            onChange={props.updateFormField} />
                     </label>
                     <label>
                         Description:
-                        <textarea />
+                        <textarea className='textDescriptionBox'
+                            type='text'
+                            name='description'
+                            value={props.description}
+                            onChange={props.updateFormField} />
                     </label>
                 </Box>
 
@@ -53,9 +79,7 @@ export default function Form(props) {
                                 name="radio-buttons-group"
                                 sx={{ display: 'flex', flexDirection: 'row' }}
                             >
-                                <FormControlLabel value="Illustration" control={<Radio />} label="Illustration" style={{ minWidth: 125 }} />
-                                <FormControlLabel value="Painting" control={<Radio />} label="Painting" style={{ minWidth: 125 }} />
-                                <FormControlLabel value="Manga" control={<Radio />} label="Manga" style={{ minWidth: 125 }} />
+                                {renderCatergoryOption()}
                             </RadioGroup>
                         </Paper>
                     </Box>
@@ -76,12 +100,12 @@ export default function Form(props) {
                 </FormControl>
 
                 <Box
-                   component="form"
-                   sx={{
-                       '& > :not(style)': { m: 2, width: '25ch' },
-                   }}
-                   noValidate
-                   autoComplete="off"
+                    component="form"
+                    sx={{
+                        '& > :not(style)': { m: 2, width: '25ch' },
+                    }}
+                    noValidate
+                    autoComplete="off"
                 >
                     <Paper elevation={3}>
                         <label>
@@ -89,32 +113,32 @@ export default function Form(props) {
                             <input className="texfieldbox" type='text' name="artist-name" />
                         </label>
                         {/* need the select dropdown */}
-                        <label> 
+                        <label>
                             sex:
-                            <input className="texfieldbox" type='text' name="Sex"/>
+                            <input className="texfieldbox" type='text' name="Sex" />
                         </label>
                         <label>
                             contact number:
-                            <input className="texfieldbox" type='text' name="Contact"/>
+                            <input className="texfieldbox" type='text' name="Contact" />
                         </label>
                         <label>
                             Password:
-                            <input className="texfieldbox" type='text' name="Password"/>
+                            <input className="texfieldbox" type='text' name="Password" />
                         </label>
                         <label>
                             Email:
-                            <input className="texfieldbox" type='text' name="Email"/>
+                            <input className="texfieldbox" type='text' name="Email" />
                         </label>
                         <label>
                             Price:
-                            <input className="texfieldbox" type='text' name="Price"/>
+                            <input className="texfieldbox" type='text' name="Price" />
                         </label>
                     </Paper>
                 </Box>
 
                 <Stack spacing={2} direction="row">
                     <Button variant="contained"
-                            onClick={() => props.addForm()}>
+                        onClick={() => props.addForm()}>
                         Add
                     </Button>
                     <Button variant="contained"

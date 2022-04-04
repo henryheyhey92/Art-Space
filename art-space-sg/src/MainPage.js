@@ -35,16 +35,30 @@ export default class MainPage extends React.Component {
             }
         ],
 
-        imageLinkName: ''
+        imageLinkName: '',
+        artWorkName: '',
+        description:'',
+        categoryOptions: [],
+        category: ""
+
     }
 
     async componentDidMount() {
         let response = await axios.get(BASE_URL + "retrieve/artwork");
-        console.log(response.data);
+        let categoryResponse = await axios.get(BASE_URL + "retrieve/category");
+        
         this.setState({
-            data: response.data
+            data: response.data,
+            categoryOptions : categoryResponse.data
         })
+        console.log(this.state.categoryOptions);
     }
+
+    // handleChange = (event) =>{
+    //     this.setState({
+    //         category: value
+    //     })
+    // }
 
     renderPage = () => {
         if (this.state.active === 'main') {
@@ -56,7 +70,11 @@ export default class MainPage extends React.Component {
                     addForm={this.createArtWork}
                     createArtWork={this.state.artwork}
                     updateFormField={this.updateFormField}
-                    imageLink={this.state.imageLinkName}/>
+                    imageLink={this.state.imageLinkName}
+                    artWorkName={this.state.artWorkName}
+                    description={this.state.description}
+                    categoryOptions={this.state.categoryOptions}
+                    category={this.state.category}/>
         }
 
     }
