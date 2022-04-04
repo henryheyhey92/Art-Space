@@ -13,6 +13,19 @@ import Stack from '@mui/material/Stack';
 
 
 export default function Form(props) {
+    
+    // need to find out how to maintain checkbox to be remain checked when edit
+    function renderMediumOption() {
+        return props.mediumOptions.medium.map( e => {
+            return <React.Fragment  key={e.value}>
+                        <Checkbox 
+                             name="medium" 
+                             value={e.value}
+                             onChange={props.updateMediumCheckBox}
+                             /> {e.name}
+                    </React.Fragment>
+        })
+    }
 
     function renderCatergoryOption() {
         let options = [];
@@ -90,11 +103,7 @@ export default function Form(props) {
                     <Box>
                         <Paper elevation={3}>
                             <FormLabel id="checkbox-group-label">Medium</FormLabel>
-                            <div>
-                                <Checkbox defaultChecked /> Oil
-                                <Checkbox defaultChecked /> Pencil
-                                <Checkbox defaultChecked /> Water Colour
-                            </div>
+                            {renderMediumOption()}
                         </Paper>
                     </Box>
                 </FormControl>

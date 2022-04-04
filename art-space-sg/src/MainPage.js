@@ -38,27 +38,27 @@ export default class MainPage extends React.Component {
         imageLinkName: '',
         artWorkName: '',
         description:'',
-        categoryOptions: [],
-        category: ""
+        categoryOptions: [],   //for the radio button
+        category: "",           // for the radio button
+        mediumOptions: [],     // for the checkbox
+        medium: []             // for the medium
+
 
     }
 
     async componentDidMount() {
         let response = await axios.get(BASE_URL + "retrieve/artwork");
         let categoryResponse = await axios.get(BASE_URL + "retrieve/category");
+        let mediumResponse = await axios.get(BASE_URL + "retrieve/medium");
         
         this.setState({
             data: response.data,
-            categoryOptions : categoryResponse.data
+            categoryOptions : categoryResponse.data,
+            mediumOptions : mediumResponse.data
         })
         console.log(this.state.categoryOptions);
+        console.log(this.state.mediumOptions);
     }
-
-    // handleChange = (event) =>{
-    //     this.setState({
-    //         category: value
-    //     })
-    // }
 
     renderPage = () => {
         if (this.state.active === 'main') {
@@ -74,9 +74,30 @@ export default class MainPage extends React.Component {
                     artWorkName={this.state.artWorkName}
                     description={this.state.description}
                     categoryOptions={this.state.categoryOptions}
-                    category={this.state.category}/>
+                    category={this.state.category}
+                    mediumOptions={this.state.mediumOptions}
+                    updateMediumCheckBox={this.updateCheckboxes}/>
         }
 
+    }
+
+    updateCheckboxes = (e) =>{
+        if(this.state[e.target.name].includes(e.target.value)){
+            let indexToRemove = this.state[e.target.name].findIndex( v =>{
+                return v === e.target.value
+            })
+            let cloned = this.state[e.target.name].slice();
+            cloned.splice(indexToRemove, 1);
+            this.setState({
+                [e.target.name]: cloned
+            })
+        }else{
+            let clone = this.state[e.target.name].slice();
+            clone.push(e.target.value);
+            this.setState({
+                [e.target.name]: clone
+            })
+        }
     }
 
     updateFormField = (e) =>{
