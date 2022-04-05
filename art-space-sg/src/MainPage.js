@@ -6,8 +6,8 @@ import AddIcon from '@mui/icons-material/Add';
 import Form from './Form';
 
 
-// const BASE_URL = "https://hl-art-space.herokuapp.com/"
-const BASE_URL = "https://3000-henryheyhey92-artspacedb-fcgyjiweags.ws-us38.gitpod.io/"
+const BASE_URL = "https://hl-art-space.herokuapp.com/"
+// const BASE_URL = "https://3000-henryheyhey92-artspacedb-fcgyjiweags.ws-us38.gitpod.io/"
 
 const initialState = {
     imageLinkName: '',
@@ -80,7 +80,10 @@ export default class MainPage extends React.Component {
 
     renderPage = () => {
         if (this.state.active === 'main') {
-            return <Read data={this.state.data} />
+            return <Read 
+                    data={this.state.data}
+                    hideCreateButton={this.hideCreateButton}
+                    showCreateButton={this.showCreateButton}/>
         }
         if (this.state.active === 'form') {
             return <Form
@@ -104,6 +107,19 @@ export default class MainPage extends React.Component {
 
     }
 
+    showCreateButton = (childData) => {
+        this.setState({
+            show: childData
+        })
+    }
+
+    hideCreateButton = (childData) => {
+        console.log('hahahahah wa');
+        this.setState({
+            show: childData
+        })
+    }
+    
     updateCheckboxes = (e) => {
         if (this.state[e.target.name].includes(e.target.value)) {
             let indexToRemove = this.state[e.target.name].findIndex(v => {
