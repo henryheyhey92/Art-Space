@@ -10,6 +10,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+
 
 
 const ExpandMore = styled((props) => {
@@ -31,10 +34,12 @@ export default class Read extends React.Component {
 
     state = {
         activeArtwork: "ShowAll",
-        show: "flex"
+        show: "flex",
+        cardData: []
     }
     renderArtWorkReadPage() {
         if (this.state.activeArtwork === 'ShowOne') {
+
             return (
                 <React.Fragment>
                     <Box
@@ -43,15 +48,61 @@ export default class Read extends React.Component {
                             flexWrap: 'wrap',
                             '& > :not(style)': {
                                 m: 5,
-                                width: 400,
-                                height: 400,
+                                width: '100%',
+                                minWidth: 'xs',
+                                minHeight: 400
                             },
                         }}>
 
-                        <Paper elevation={3} >
-                            <Button size="small" 
+                        <Paper elevation={3} sx={{}}>
+                            <Box sx={{display: 'flex', justifyContent: 'space-between', m: 1}}>
+                                <Button size="small"
                                     onClick={() => this.setInactive('block')}
-                                    >Close</Button>
+                                >Close</Button>
+                                <Button 
+                                    // onClick={() => this.deleteBtn(this.state.cardData)}
+                                    >delete</Button>
+                            </Box>
+
+
+                            <Typography gutterBottom
+                                variant="h5"
+                                component="div"
+                                sx={{ m: 2 }}>
+                                {this.state.cardData.name}
+                            </Typography>
+                            <CardMedia
+                                xs={12} sm={6} md={4}
+                                component="img"
+                                width="100%"
+                                height="200"
+                                image={this.state.cardData.image_link}
+                                alt="green iguana"
+                            />
+                            <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
+                                <label>Description :</label>
+                                {this.state.cardData.description}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
+                                <label>Category :</label>
+                                {this.state.cardData.category}
+                            </Typography>
+                            <div sx={{ m: 2 }}>
+                                <Stack direction="row" spacing={1} sx={{ m: 2 }}>
+                                    <Typography variant="body2" color="text.secondary">
+                                        <label>Medium :</label>
+                                    </Typography>
+                                    {this.state.cardData.medium.map(mediumName => {
+                                        return (
+                                            <Chip label={mediumName} />
+                                        )
+                                    })}
+                                </Stack>
+                            </div>
+                            <Typography variant="h6" color="text.secondary" sx={{ m: 2 }}>
+                                <label>Price : </label>
+                                {this.state.cardData.price}
+                            </Typography>
                         </Paper>
                     </Box>
                 </React.Fragment>
@@ -64,16 +115,22 @@ export default class Read extends React.Component {
             activeArtwork: "ShowAll",
             show: 'flex'
         })
-        this.props.showCreateButton(e);
+        this.props.showCreateButton("block");
     }
+    
+    //need to pass over the password and objectId
+    // deleteBtn = (e) => {
+    //     this.props.deleteArtWork(e);
+    // }
 
-    setActive = (e) => {
-        this.setState({
+    setActive = async (data) => {
+        await this.setState({
             activeArtwork: "ShowOne",
-            show: "none"
+            show: "none",
+            cardData: data
         })
-        this.props.hideCreateButton(e);
-        
+        this.props.hideCreateButton("none");
+        console.log(this.state.cardData);
     }
 
     render() {
@@ -106,8 +163,8 @@ export default class Read extends React.Component {
                                             <CardActions>
                                                 <Button size="small">Share</Button>
                                                 <Button size="small"
-                                                        onClick={() => this.setActive('none')}
-                                                        >Learn More</Button>
+                                                    onClick={() => this.setActive(data)}
+                                                >Learn More</Button>
                                             </CardActions>
                                         </Card>
                                     </Grid>

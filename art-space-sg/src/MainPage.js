@@ -83,7 +83,9 @@ export default class MainPage extends React.Component {
             return <Read 
                     data={this.state.data}
                     hideCreateButton={this.hideCreateButton}
-                    showCreateButton={this.showCreateButton}/>
+                    showCreateButton={this.showCreateButton}
+                    // deleteArtWork={this.deleteArtWork}
+                    />
         }
         if (this.state.active === 'form') {
             return <Form
@@ -107,6 +109,8 @@ export default class MainPage extends React.Component {
 
     }
 
+    
+
     showCreateButton = (childData) => {
         this.setState({
             show: childData
@@ -114,12 +118,11 @@ export default class MainPage extends React.Component {
     }
 
     hideCreateButton = (childData) => {
-        console.log('hahahahah wa');
         this.setState({
             show: childData
         })
     }
-    
+
     updateCheckboxes = (e) => {
         if (this.state[e.target.name].includes(e.target.value)) {
             let indexToRemove = this.state[e.target.name].findIndex(v => {
@@ -187,6 +190,10 @@ export default class MainPage extends React.Component {
         })
         this.setState(initialState)
     }
+
+    // deleteArtWork = async (childData) => {
+        
+    // }
 
 
     render() {
