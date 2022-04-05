@@ -9,21 +9,42 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import Stack from '@mui/material/Stack';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
 
-
+const sexSelection = [
+    {
+        'name': "male",
+        'value': "male"
+    },
+    {
+        'name': "female",
+        'value': "female"
+    }
+];
 
 export default function Form(props) {
-    
+
+    function renderSex(){
+        return sexSelection.map(o =>{
+            return <MenuItem key={o.value} 
+                            value={o.value} 
+                            name={o.name}
+                            >{o.name}</MenuItem>
+        })
+    }
+
     // need to find out how to maintain checkbox to be remain checked when edit
     function renderMediumOption() {
-        return props.mediumOptions.medium.map( e => {
-            return <React.Fragment  key={e.value}>
-                        <Checkbox 
-                             name="medium" 
-                             value={e.value}
-                             onChange={props.updateMediumCheckBox}
-                             /> {e.name}
-                    </React.Fragment>
+        return props.mediumOptions.medium.map(e => {
+            return <React.Fragment key={e.value}>
+                <Checkbox
+                    name="medium"
+                    value={e.value}
+                    onChange={props.updateMediumCheckBox}
+                /> {e.name}
+            </React.Fragment>
         })
     }
 
@@ -31,16 +52,16 @@ export default function Form(props) {
         let options = [];
         for (let o of props.categoryOptions.art_space) {
             options.push(
-                    <FormControlLabel 
-                                    key={o.value}
-                                    value={o.value}
-                                    control={<Radio />} 
-                                    label={o.name} 
-                                    name='category'
-                                    onChange={props.updateFormField}
-                                    checked={props.category === o.value}
-                                    style={{ minWidth: 125 }} />
-                )
+                <FormControlLabel
+                    key={o.value}
+                    value={o.value}
+                    control={<Radio />}
+                    label={o.name}
+                    name='category'
+                    onChange={props.updateFormField}
+                    checked={props.category === o.value}
+                    style={{ minWidth: 125 }} />
+            )
         }
         return options;
     }
@@ -108,6 +129,7 @@ export default function Form(props) {
                     </Box>
                 </FormControl>
 
+                {/* Artist particulars  */}
                 <Box
                     component="form"
                     sx={{
@@ -119,35 +141,63 @@ export default function Form(props) {
                     <Paper elevation={3}>
                         <label>
                             Artist name:
-                            <input className="texfieldbox" type='text' name="artist-name" />
+                            <input className="textfieldbox"
+                                type='text'
+                                name="artistName"
+                                value={props.artistName}
+                                onChange={props.updateFormField} />
                         </label>
                         {/* need the select dropdown */}
-                        <label>
-                            sex:
-                            <input className="texfieldbox" type='text' name="Sex" />
-                        </label>
+                        <FormControl>
+                            <InputLabel id="demo-simple-select-label">Sex</InputLabel>
+                            <Select
+                                value={props.sex}
+                                label="sex"
+                                name="sex"
+                                onChange={props.updateFormField}
+                            >
+                                {renderSex()}
+                            </Select>
+                        </FormControl>
+
                         <label>
                             contact number:
-                            <input className="texfieldbox" type='text' name="Contact" />
+                            <input className="textfieldbox" 
+                                    type='text' 
+                                    name="contact"
+                                    value={props.contactNum}
+                                    onChange={props.updateFormField} />
                         </label>
                         <label>
                             Password:
-                            <input className="texfieldbox" type='text' name="Password" />
+                            <input className="textfieldbox" 
+                                    type='text' 
+                                    name="password"
+                                    value={props.password}
+                                    onChange={props.updateFormField} />
                         </label>
                         <label>
                             Email:
-                            <input className="texfieldbox" type='text' name="Email" />
+                            <input className="textfieldbox" 
+                                    type='text' 
+                                    name="email" 
+                                    value={props.email}
+                                    onChange={props.updateFormField}/>
                         </label>
                         <label>
                             Price:
-                            <input className="texfieldbox" type='text' name="Price" />
+                            <input className="textfieldbox" 
+                                    type='text' 
+                                    name="price" 
+                                    value={props.price}
+                                    onChange={props.updateFormField}/>
                         </label>
                     </Paper>
                 </Box>
 
                 <Stack spacing={2} direction="row">
                     <Button variant="contained"
-                        onClick={() => props.addForm()}>
+                        onClick={props.createArtWork}>
                         Add
                     </Button>
                     <Button variant="contained"
