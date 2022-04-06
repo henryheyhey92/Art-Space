@@ -108,12 +108,13 @@ export default class Read extends React.Component {
                                 {this.state.cardData.name}
                             </Typography>
                             <CardMedia
-                                xs={12} sm={6} md={4}
+                                xs={12} sm={8} md={6}
                                 component="img"
                                 width="100%"
-                                height="200"
+                                height="100%"
                                 image={this.state.cardData.image_link}
                                 alt="green iguana"
+                                sx={{backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}
                             />
                             <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
                                 <label>Description :</label>
@@ -203,8 +204,8 @@ export default class Read extends React.Component {
         })
     }
 
-    setActive = async (data) => {
-        await this.setState({
+    setActive = (data) => {
+        this.setState({
             activeArtwork: "ShowOne",
             show: "none",
             cardData: data
@@ -213,7 +214,7 @@ export default class Read extends React.Component {
         console.log(this.state.cardData._id);
     }
 
-    setEdit = async(data) => {
+    setEdit = (data) => {
         this.props.triggerEdit(data);
     }
 
@@ -232,9 +233,10 @@ export default class Read extends React.Component {
                                         <Card sx={{ minWidth: 225, m: 2 }} >
                                             <CardMedia
                                                 component="img"
-                                                height="180"
+                                                height="200"
                                                 image={data.image_link}
                                                 alt="green iguana"
+                                                sx={{backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}
                                             />
                                             <CardContent sx={{ height: 100 }} key={data.name}>
                                                 <Typography gutterBottom variant="h5" component="div">

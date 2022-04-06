@@ -20,7 +20,8 @@ const initialState = {
     contact: "",
     password: "",
     email: "",
-    price: ""
+    price: "",
+    objectId: ""
 }
 
 
@@ -61,7 +62,10 @@ export default class MainPage extends React.Component {
         contact: "",
         password: "",
         email: "",
-        price: ""
+        price: "",
+
+        editbuttonflag: false,
+        objectId : ""
     }
 
     async componentDidMount() {
@@ -74,8 +78,6 @@ export default class MainPage extends React.Component {
             categoryOptions: categoryResponse.data,
             mediumOptions: mediumResponse.data
         })
-        console.log(this.state.categoryOptions);
-        console.log(this.state.mediumOptions);
     }
 
     renderPage = () => {
@@ -99,15 +101,48 @@ export default class MainPage extends React.Component {
                 categoryOptions={this.state.categoryOptions}
                 category={this.state.category}
                 mediumOptions={this.state.mediumOptions}
+                medium={this.state.medium}
                 updateMediumCheckBox={this.updateCheckboxes}
                 artistName={this.state.artistName}
                 sex={this.state.sex}
                 contactNum={this.state.contact}
                 password={this.state.password}
                 email={this.state.email}
-                price={this.state.price} />
+                price={this.state.price}
+                editBtn={this.state.editbuttonflag}
+                updateArtWork={this.updateArtWork} />
         }
 
+    }
+
+    updateArtWork = async () => {
+        console.log("Can edit/update ");
+        let data = {
+            "image_link": this.state.imageLinkName,
+            "name": this.state.artWorkName,
+            "description": this.state.description,
+            "category": this.state.category.toLowerCase(),
+            "medium": this.state.medium,
+            "artist": {
+                "name": this.state.artistName,
+                "sex": this.state.sex.toLowerCase(),
+                "contact_no": parseInt(this.state.contact),
+                "email": this.state.email
+            },
+            "password": this.state.password,
+            "price": parseInt(this.state.price)
+        }
+        let response = await axios.put(BASE_URL+ 'update/artwork/'+ this.state.objectId, data);
+        console.log(response);
+
+        let refreshData = await axios.get(BASE_URL+ 'retrieve/artwork');
+        this.setState({
+            active: 'main',
+            show: 'block',
+            data: refreshData.data,
+            editbuttonflag: false
+        })
+        this.setState(initialState)
     }
 
     updateFormData = (childData) => {
@@ -126,7 +161,9 @@ export default class MainPage extends React.Component {
             price : childData.price,
 
             active: 'form',
-            show: 'none'
+            show: 'none',
+            editbuttonflag : true,
+            objectId : childData._id
         })
     }
 

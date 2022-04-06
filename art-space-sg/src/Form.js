@@ -26,12 +26,12 @@ const sexSelection = [
 
 export default function Form(props) {
 
-    function renderSex(){
-        return sexSelection.map(o =>{
-            return <MenuItem key={o.value} 
-                            value={o.value} 
-                            name={o.name}
-                            >{o.name}</MenuItem>
+    function renderSex() {
+        return sexSelection.map(o => {
+            return <MenuItem key={o.value}
+                value={o.value}
+                name={o.name}
+            >{o.name}</MenuItem>
         })
     }
 
@@ -43,6 +43,7 @@ export default function Form(props) {
                     name="medium"
                     value={e.value}
                     onChange={props.updateMediumCheckBox}
+                    checked={props.medium.includes(e.value)}
                 /> {e.name}
             </React.Fragment>
         })
@@ -162,44 +163,54 @@ export default function Form(props) {
 
                         <label>
                             contact number:
-                            <input className="textfieldbox" 
-                                    type='text' 
-                                    name="contact"
-                                    value={props.contactNum}
-                                    onChange={props.updateFormField} />
+                            <input className="textfieldbox"
+                                type='text'
+                                name="contact"
+                                value={props.contactNum}
+                                onChange={props.updateFormField} />
                         </label>
                         <label>
                             Password:
-                            <input className="textfieldbox" 
-                                    type='text' 
-                                    name="password"
-                                    value={props.password}
-                                    onChange={props.updateFormField} />
+                            <input className="textfieldbox"
+                                type='text'
+                                name="password"
+                                value={props.password}
+                                onChange={props.updateFormField} />
                         </label>
                         <label>
                             Email:
-                            <input className="textfieldbox" 
-                                    type='text' 
-                                    name="email" 
-                                    value={props.email}
-                                    onChange={props.updateFormField}/>
+                            <input className="textfieldbox"
+                                type='text'
+                                name="email"
+                                value={props.email}
+                                onChange={props.updateFormField} />
                         </label>
                         <label>
                             Price:
-                            <input className="textfieldbox" 
-                                    type='text' 
-                                    name="price" 
-                                    value={props.price}
-                                    onChange={props.updateFormField}/>
+                            <input className="textfieldbox"
+                                type='text'
+                                name="price"
+                                value={props.price}
+                                onChange={props.updateFormField} />
                         </label>
                     </Paper>
                 </Box>
 
                 <Stack spacing={2} direction="row">
-                    <Button variant="contained"
-                        onClick={props.createArtWork}>
-                        Add
-                    </Button>
+                    <div>
+                        { 
+                        !props.editBtn ? 
+                        <Button variant="contained"
+                            onClick={props.createArtWork}>
+                            Add
+                        </Button> : 
+                        <Button variant="contained"
+                            onClick={props.updateArtWork}>
+                            Update 
+                        </Button>
+                        }
+                    </div>
+
                     <Button variant="contained"
                         onClick={() => props.closeForm()}
                     >Close</Button>
