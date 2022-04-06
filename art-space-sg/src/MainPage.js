@@ -84,6 +84,7 @@ export default class MainPage extends React.Component {
                     data={this.state.data}
                     hideCreateButton={this.hideCreateButton}
                     showCreateButton={this.showCreateButton}
+                    triggerEdit={this.updateFormData}
                     refreshData={this.refreshMainPageData}
                     />
         }
@@ -107,6 +108,26 @@ export default class MainPage extends React.Component {
                 price={this.state.price} />
         }
 
+    }
+
+    updateFormData = (childData) => {
+        console.log(childData);
+        this.setState({
+            imageLinkName : childData.image_link,
+            artWorkName : childData.name,
+            description : childData.description,
+            category : childData.category,
+            medium : childData.medium,
+            artistName : childData.artist.name,
+            sex : childData.artist.sex,
+            contact : childData.artist.contact_no,
+            email : childData.artist.email,
+            password : childData.password,
+            price : childData.price,
+
+            active: 'form',
+            show: 'none'
+        })
     }
 
     refreshMainPageData = async (childData) =>{
@@ -161,6 +182,7 @@ export default class MainPage extends React.Component {
 
     //trigger renderForm 
     renderForm = () => {
+        this.setState(initialState)
         this.setState({
             active: 'form',
             show: 'none'

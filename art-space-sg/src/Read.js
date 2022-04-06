@@ -20,8 +20,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import axios from 'axios';
 
-// const BASE_URL = "https://hl-art-space.herokuapp.com/"
-const BASE_URL = "https://3000-henryheyhey92-artspacedb-fcgyjiweags.ws-us38.gitpod.io/"
+const BASE_URL = "https://hl-art-space.herokuapp.com/"
+// const BASE_URL = "https://3000-henryheyhey92-artspacedb-fcgyjiweags.ws-us38.gitpod.io/"
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -213,6 +213,10 @@ export default class Read extends React.Component {
         console.log(this.state.cardData._id);
     }
 
+    setEdit = async(data) => {
+        this.props.triggerEdit(data);
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -241,10 +245,10 @@ export default class Read extends React.Component {
                                                 </Typography>
                                             </CardContent>
                                             <CardActions key={data.price}>
-                                                <Button size="small">Share</Button>
                                                 <Button size="small"
-                                                    onClick={() => this.setActive(data)}
-                                                >Learn More</Button>
+                                                    onClick={() => this.setEdit(data)}>Edit</Button>
+                                                <Button size="small"
+                                                    onClick={() => this.setActive(data)}>Learn More</Button>
                                             </CardActions>
                                         </Card>
                                     </Grid>
