@@ -84,7 +84,7 @@ export default class MainPage extends React.Component {
                     data={this.state.data}
                     hideCreateButton={this.hideCreateButton}
                     showCreateButton={this.showCreateButton}
-                    // deleteArtWork={this.deleteArtWork}
+                    refreshData={this.refreshMainPageData}
                     />
         }
         if (this.state.active === 'form') {
@@ -109,6 +109,17 @@ export default class MainPage extends React.Component {
 
     }
 
+    refreshMainPageData = async (childData) =>{
+        if(childData){
+            let refreshData = await axios.get(BASE_URL+ 'retrieve/artwork');
+            this.setState({
+                active: 'main',
+                show: 'block',
+                data: refreshData.data
+            })
+            this.setState(initialState)
+        }
+    }
     
 
     showCreateButton = (childData) => {

@@ -12,8 +12,16 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import axios from 'axios';
 
-
+// const BASE_URL = "https://hl-art-space.herokuapp.com/"
+const BASE_URL = "https://3000-henryheyhey92-artspacedb-fcgyjiweags.ws-us38.gitpod.io/"
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -35,16 +43,44 @@ export default class Read extends React.Component {
     state = {
         activeArtwork: "ShowAll",
         show: "flex",
-        cardData: []
+        hide: "flex",
+        cardData: [],
+        openDialog: "none",
+        open: false,
+        comfirmPassword: ""
     }
     renderArtWorkReadPage() {
         if (this.state.activeArtwork === 'ShowOne') {
 
             return (
                 <React.Fragment>
+                    <Dialog open={this.state.open} onClose={() => this.closeDialog()} >
+                        <DialogTitle>Delete Confirmation</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Please input password to delete your artwork
+                            </DialogContentText>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="name"
+                                label="Password"
+                                type="password"
+                                fullWidth
+                                variant="standard"
+                                onChange={this.updateReadFormField}
+                                name="comfirmPassword"
+                                value={this.state.comfirmPassword}
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={() => this.closeDialog()}>Cancel</Button>
+                            <Button onClick={() => this.checkPassword(this.state.comfirmPassword)}>Sumbit</Button>
+                        </DialogActions>
+                    </Dialog>
                     <Box
                         sx={{
-                            display: 'flex',
+                            display: this.state.hide,
                             flexWrap: 'wrap',
                             '& > :not(style)': {
                                 m: 5,
@@ -54,14 +90,14 @@ export default class Read extends React.Component {
                             },
                         }}>
 
-                        <Paper elevation={3} sx={{}}>
-                            <Box sx={{display: 'flex', justifyContent: 'space-between', m: 1}}>
+                        <Paper elevation={3} sx={{}} >
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', m: 1 }}>
                                 <Button size="small"
                                     onClick={() => this.setInactive('block')}
                                 >Close</Button>
-                                <Button 
-                                    // onClick={() => this.deleteBtn(this.state.cardData)}
-                                    >delete</Button>
+                                <Button
+                                    onClick={() => this.deleteBtn(this.state.cardData)}
+                                >delete</Button>
                             </Box>
 
 
@@ -94,7 +130,7 @@ export default class Read extends React.Component {
                                     </Typography>
                                     {this.state.cardData.medium.map(mediumName => {
                                         return (
-                                            <Chip label={mediumName} />
+                                            <Chip label={mediumName} key={mediumName}/>
                                         )
                                     })}
                                 </Stack>
@@ -110,6 +146,37 @@ export default class Read extends React.Component {
         }
     }
 
+
+    checkPassword = async (password) => {
+        console.log(password);
+        console.log(this.state.cardData.id)
+        let response = await axios.get(BASE_URL+'retrieve/password/'+ this.state.cardData._id +'/'+password)
+        console.log(response.data.result);
+        if(response.data.result){
+            let deleteResponse = await axios.delete(BASE_URL+'delete/artwork/'+ this.state.cardData._id +'/'+password)
+            console.log(deleteResponse.status);
+            if(deleteResponse.status === 200){
+                this.closeDialog();
+                this.setInactive('block')
+                this.setState({
+                    open: false
+                })
+                let myBoolean = true;
+                this.props.refreshData(myBoolean);
+            }
+        }else{
+            console.log("false")
+        }
+    }
+
+    updateReadFormField = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+
+
     setInactive = (e) => {
         this.setState({
             activeArtwork: "ShowAll",
@@ -117,11 +184,24 @@ export default class Read extends React.Component {
         })
         this.props.showCreateButton("block");
     }
-    
+
     //need to pass over the password and objectId
-    // deleteBtn = (e) => {
-    //     this.props.deleteArtWork(e);
-    // }
+    deleteBtn = (e) => {
+        this.setState({
+            hide: "none",
+            openDialog: "block",
+            open: true
+        })
+        // this.props.deleteArtWork(e);
+
+    }
+
+    closeDialog = () => {
+        this.setState({
+            hide: "flex",
+            open: false
+        })
+    }
 
     setActive = async (data) => {
         await this.setState({
@@ -130,7 +210,7 @@ export default class Read extends React.Component {
             cardData: data
         })
         this.props.hideCreateButton("none");
-        console.log(this.state.cardData);
+        console.log(this.state.cardData._id);
     }
 
     render() {
@@ -152,7 +232,7 @@ export default class Read extends React.Component {
                                                 image={data.image_link}
                                                 alt="green iguana"
                                             />
-                                            <CardContent sx={{ height: 100 }}>
+                                            <CardContent sx={{ height: 100 }} key={data.name}>
                                                 <Typography gutterBottom variant="h5" component="div">
                                                     {data.name}
                                                 </Typography>
@@ -160,7 +240,7 @@ export default class Read extends React.Component {
                                                     {data.description}
                                                 </Typography>
                                             </CardContent>
-                                            <CardActions>
+                                            <CardActions key={data.price}>
                                                 <Button size="small">Share</Button>
                                                 <Button size="small"
                                                     onClick={() => this.setActive(data)}
