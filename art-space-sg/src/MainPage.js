@@ -4,6 +4,8 @@ import Read from './Read';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Form from './Form';
+import FixedBottomNavigation from './FixedBottomNavigation';
+
 
 
 const BASE_URL = "https://hl-art-space.herokuapp.com/"
@@ -78,6 +80,10 @@ export default class MainPage extends React.Component {
             categoryOptions: categoryResponse.data,
             mediumOptions: mediumResponse.data
         })
+    }
+
+    renderBottomNavBar = () =>{
+        return <FixedBottomNavigation />
     }
 
     renderPage = () => {
@@ -280,6 +286,7 @@ export default class MainPage extends React.Component {
                     </Fab>
                     {this.renderPage()}
                 </div>
+                {this.renderBottomNavBar()}
             </React.Fragment>
         )
     }

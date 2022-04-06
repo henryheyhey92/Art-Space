@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import MainPage from './MainPage';
 import Navbar from './Navbar';
 import MainImage from './MainImage';
-import FixedBottomNavigation from './FixedBottomNavigation';
+
 
 function App() {
   return (
@@ -13,7 +13,6 @@ function App() {
     <Navbar />
     {/* <MainImage /> */}
      <MainPage />
-     <FixedBottomNavigation />
    </React.Fragment>
   );
 }

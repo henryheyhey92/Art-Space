@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import Chip from '@mui/material/Chip';
+import Chip from '@mui/material/Chip';  
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -18,6 +18,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 
 const BASE_URL = "https://hl-art-space.herokuapp.com/"
@@ -114,7 +115,7 @@ export default class Read extends React.Component {
                                 height="100%"
                                 image={this.state.cardData.image_link}
                                 alt="green iguana"
-                                sx={{backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}
+                                sx={{ backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}
                             />
                             <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
                                 <label>Description :</label>
@@ -131,7 +132,7 @@ export default class Read extends React.Component {
                                     </Typography>
                                     {this.state.cardData.medium.map(mediumName => {
                                         return (
-                                            <Chip label={mediumName} key={mediumName}/>
+                                            <Chip label={mediumName} key={mediumName} />
                                         )
                                     })}
                                 </Stack>
@@ -151,12 +152,12 @@ export default class Read extends React.Component {
     checkPassword = async (password) => {
         console.log(password);
         console.log(this.state.cardData.id)
-        let response = await axios.get(BASE_URL+'retrieve/password/'+ this.state.cardData._id +'/'+password)
+        let response = await axios.get(BASE_URL + 'retrieve/password/' + this.state.cardData._id + '/' + password)
         console.log(response.data.result);
-        if(response.data.result){
-            let deleteResponse = await axios.delete(BASE_URL+'delete/artwork/'+ this.state.cardData._id +'/'+password)
+        if (response.data.result) {
+            let deleteResponse = await axios.delete(BASE_URL + 'delete/artwork/' + this.state.cardData._id + '/' + password)
             console.log(deleteResponse.status);
-            if(deleteResponse.status === 200){
+            if (deleteResponse.status === 200) {
                 this.closeDialog();
                 this.setInactive('block')
                 this.setState({
@@ -165,7 +166,7 @@ export default class Read extends React.Component {
                 let myBoolean = true;
                 this.props.refreshData(myBoolean);
             }
-        }else{
+        } else {
             console.log("false")
         }
     }
@@ -236,7 +237,7 @@ export default class Read extends React.Component {
                                                 height="200"
                                                 image={data.image_link}
                                                 alt="green iguana"
-                                                sx={{backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}
+                                                sx={{ backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}
                                             />
                                             <CardContent sx={{ height: 100 }} key={data.name}>
                                                 <Typography gutterBottom variant="h5" component="div">
@@ -255,7 +256,10 @@ export default class Read extends React.Component {
                                         </Card>
                                     </Grid>
                                 )
-                            })} </Grid> </div> : <h1>Loading...</h1>
+                            })} </Grid> </div> : 
+                            <Box sx={{ display: 'flex' , size: "100", justifyContent: "center", mt: 30, thickness: 10}}>
+                                    <CircularProgress />
+                            </Box>
                 }
             </React.Fragment>
         )
