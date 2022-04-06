@@ -105,7 +105,7 @@ export default function Form(props) {
                 </Box>
 
 
-                <FormControl style={{ width: "100%", display: 'flex' }}>
+                <FormControl style={{ width: "100%", display: 'flex' , justifyContent: 'space-evenly'}}>
                     <Box >
                         <Paper elevation={3}>
                             <FormLabel id="demo-radio-buttons-group-label">Category</FormLabel>

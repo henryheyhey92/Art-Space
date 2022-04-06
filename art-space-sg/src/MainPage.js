@@ -5,7 +5,16 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Form from './Form';
 import FixedBottomNavigation from './FixedBottomNavigation';
-
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
+import Filter from './Filter';
 
 
 const BASE_URL = "https://hl-art-space.herokuapp.com/"
@@ -67,7 +76,7 @@ export default class MainPage extends React.Component {
         price: "",
 
         editbuttonflag: false,
-        objectId : ""
+        objectId: ""
     }
 
     async componentDidMount() {
@@ -82,19 +91,19 @@ export default class MainPage extends React.Component {
         })
     }
 
-    renderBottomNavBar = () =>{
+    renderBottomNavBar = () => {
         return <FixedBottomNavigation />
     }
 
     renderPage = () => {
         if (this.state.active === 'main') {
-            return <Read 
-                    data={this.state.data}
-                    hideCreateButton={this.hideCreateButton}
-                    showCreateButton={this.showCreateButton}
-                    triggerEdit={this.updateFormData}
-                    refreshData={this.refreshMainPageData}
-                    />
+            return <Read
+                data={this.state.data}
+                hideCreateButton={this.hideCreateButton}
+                showCreateButton={this.showCreateButton}
+                triggerEdit={this.updateFormData}
+                refreshData={this.refreshMainPageData}
+            />
         }
         if (this.state.active === 'form') {
             return <Form
@@ -138,10 +147,10 @@ export default class MainPage extends React.Component {
             "password": this.state.password,
             "price": parseInt(this.state.price)
         }
-        let response = await axios.put(BASE_URL+ 'update/artwork/'+ this.state.objectId, data);
+        let response = await axios.put(BASE_URL + 'update/artwork/' + this.state.objectId, data);
         console.log(response);
 
-        let refreshData = await axios.get(BASE_URL+ 'retrieve/artwork');
+        let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
         this.setState({
             active: 'main',
             show: 'block',
@@ -154,28 +163,28 @@ export default class MainPage extends React.Component {
     updateFormData = (childData) => {
         console.log(childData);
         this.setState({
-            imageLinkName : childData.image_link,
-            artWorkName : childData.name,
-            description : childData.description,
-            category : childData.category,
-            medium : childData.medium,
-            artistName : childData.artist.name,
-            sex : childData.artist.sex,
-            contact : childData.artist.contact_no,
-            email : childData.artist.email,
-            password : childData.password,
-            price : childData.price,
+            imageLinkName: childData.image_link,
+            artWorkName: childData.name,
+            description: childData.description,
+            category: childData.category,
+            medium: childData.medium,
+            artistName: childData.artist.name,
+            sex: childData.artist.sex,
+            contact: childData.artist.contact_no,
+            email: childData.artist.email,
+            password: childData.password,
+            price: childData.price,
 
             active: 'form',
             show: 'none',
-            editbuttonflag : true,
-            objectId : childData._id
+            editbuttonflag: true,
+            objectId: childData._id
         })
     }
 
-    refreshMainPageData = async (childData) =>{
-        if(childData){
-            let refreshData = await axios.get(BASE_URL+ 'retrieve/artwork');
+    refreshMainPageData = async (childData) => {
+        if (childData) {
+            let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
             this.setState({
                 active: 'main',
                 show: 'block',
@@ -184,7 +193,7 @@ export default class MainPage extends React.Component {
             this.setState(initialState)
         }
     }
-    
+
 
     showCreateButton = (childData) => {
         this.setState({
@@ -258,7 +267,7 @@ export default class MainPage extends React.Component {
         let response = await axios.post(BASE_URL + 'create/art/post', data);
         console.log(response);
 
-        let refreshData = await axios.get(BASE_URL+ 'retrieve/artwork');
+        let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
         this.setState({
             active: 'main',
             show: 'block',
@@ -267,9 +276,6 @@ export default class MainPage extends React.Component {
         this.setState(initialState)
     }
 
-    // deleteArtWork = async (childData) => {
-        
-    // }
 
 
     render() {
@@ -284,6 +290,35 @@ export default class MainPage extends React.Component {
                         <AddIcon sx={{ m: 1 }} />
                         Create
                     </Fab>
+                    <Accordion sx={{ m: 5 }}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <Typography>Filter</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails >
+                            <Paper
+                                component="form"
+                                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: "100%" }}
+                            >
+                                <InputBase
+                                    sx={{ m: 1, flex: 1 }}
+                                    placeholder="Search"
+                                    inputProps={{ 'aria-label': 'search' }}
+                                    xs={12} sm={12} md={12}
+                                />
+                                <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+                                    <SearchIcon />
+                                </IconButton>
+                            </Paper>
+                            {/* the radiobutton */}
+                            {/* <Filter renderRadioBtn={this.state.categoryOptions}
+                                    updateFormField={this.updateFormField}
+                                    category={this.state.category}/> */}
+                        </AccordionDetails>
+                    </Accordion>
                     {this.renderPage()}
                 </div>
                 {this.renderBottomNavBar()}
