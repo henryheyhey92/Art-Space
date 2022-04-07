@@ -15,7 +15,12 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Filter from './Filter';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import { ThreeKSharp } from '@mui/icons-material';
 
 
 const BASE_URL = "https://hl-art-space.herokuapp.com/"
@@ -77,7 +82,9 @@ export default class MainPage extends React.Component {
         price: "",
 
         editbuttonflag: false,
-        objectId: ""
+        objectId: "",
+
+        categoryOptionsV2: []
     }
 
     async componentDidMount() {
@@ -88,7 +95,8 @@ export default class MainPage extends React.Component {
         this.setState({
             data: response.data,
             categoryOptions: categoryResponse.data,
-            mediumOptions: mediumResponse.data
+            mediumOptions: mediumResponse.data,
+            categoryOptionV2: categoryResponse.data
         })
     }
 
@@ -277,6 +285,31 @@ export default class MainPage extends React.Component {
         this.setState(initialState)
     }
 
+    renderRadioOption() {
+        let options = [];
+        let temp = [];
+        console.log(this.state.categoryOptions.art_space);
+        if(this.state.categoryOptions.art_space){
+            temp = this.state.categoryOptions.art_space;
+        }
+        if(temp){
+            for (let o of temp) {
+                options.push(
+                    <FormControlLabel
+                        key={o.value}
+                        value={o.value}
+                        control={<Radio />}
+                        label={o.name}
+                        name='category'
+                        onChange={this.updateFormField}
+                        checked={this.state.category.includes(o.value)}
+                        style={{ minWidth: 125 }} />
+                )
+            }
+        }
+        
+        return options;
+    }
 
 
     render() {
@@ -291,7 +324,7 @@ export default class MainPage extends React.Component {
                         <AddIcon sx={{ m: 1 }} />
                         Create
                     </Fab>
-                    <Accordion sx={{ m: 5 }}>
+                    <Accordion sx={{ m: 5, display: this.state.show }}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"
@@ -314,10 +347,26 @@ export default class MainPage extends React.Component {
                                     <SearchIcon />
                                 </IconButton>
                             </Paper>
-                            {/* the radiobutton */}
-                            {/* <Filter renderRadioBtn={this.state.categoryOptions}
-                                    updateFormField={this.updateFormField}
-                                    category={this.state.category}/> */}
+                            
+                        </AccordionDetails>
+                    </Accordion>
+                    <Accordion sx={{ m: 5, display: this.state.show }}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <Typography>Filter</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails >
+                            <RadioGroup
+                                aria-labelledby="demo-radio-buttons-group-label"
+                                defaultValue="female"
+                                name="radio-buttons-group"
+                                sx={{ display: 'flex', flexDirection: 'row' }}
+                            >
+                                {this.renderRadioOption()}
+                            </RadioGroup>
                         </AccordionDetails>
                     </Accordion>
                     {this.renderPage()}
