@@ -257,7 +257,8 @@ export default class MainPage extends React.Component {
     closeForm = () => {
         this.setState({
             active: 'main',
-            show: 'block'
+            show: 'block',
+            editbuttonflag: false
         })
     }
 

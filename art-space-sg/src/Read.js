@@ -20,6 +20,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
+import Comments from './Comments';
+
 
 // const BASE_URL = "https://hl-art-space.herokuapp.com/"
 const BASE_URL = "https://3000-henryheyhey92-artspacedb-fcgyjiweags.ws-us38.gitpod.io/"
@@ -45,11 +47,18 @@ export default class Read extends React.Component {
         activeArtwork: "ShowAll",
         show: "flex",
         hide: "flex",
+        hideComment : 'block',
         cardData: [],
         openDialog: "none",
         open: false,
         comfirmPassword: ""
     }
+
+    retrieveDate() {
+        let date = new Date(this.state.cardData.last_time_stamp)
+        return date.toLocaleDateString()
+    }
+
     renderArtWorkReadPage() {
         if (this.state.activeArtwork === 'ShowOne') {
 
@@ -141,6 +150,29 @@ export default class Read extends React.Component {
                                 <label>Price : </label>
                                 {this.state.cardData.price}
                             </Typography>
+                            <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
+                                <label>Last Updated Time Stamp : </label>
+                                {this.retrieveDate()}
+                            </Typography>
+                        </Paper>
+                    </Box>
+                    <Box
+                    sx={{
+                        display: this.state.hide,
+                        flexWrap: 'wrap',
+                        '& > :not(style)': {
+                            mb: 5 ,
+                            ml: 5,
+                            mr: 5,
+                            width: '100%',
+                            minWidth: 'xs',
+                            minHeight: 280
+                        },
+                    }}>
+                        <Paper elevation={3} >
+                            <div sx={{display: "flex"}}>
+                                <Comments />
+                            </div>
                         </Paper>
                     </Box>
                 </React.Fragment>
@@ -200,7 +232,8 @@ export default class Read extends React.Component {
 
     closeDialog = () => {
         this.setState({
-            hide: "flex",
+            hide: "none",
+            hideComment : 'none',
             open: false
         })
     }
