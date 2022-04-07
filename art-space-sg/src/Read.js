@@ -115,7 +115,7 @@ export default class Read extends React.Component {
                                 
                                 image={this.state.cardData.image_link}
                                 alt="green iguana"
-                                sx={{ objectFit: "contain", height: 500 }}
+                                sx={{ objectFit: "contain", height: 300 }}
                             />
                             <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
                                 <label>Description :</label>
