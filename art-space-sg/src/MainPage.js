@@ -23,6 +23,7 @@ import FormLabel from '@mui/material/FormLabel';
 import { ThreeKSharp } from '@mui/icons-material';
 import Checkbox from '@mui/material/Checkbox';
 import { FormGroup } from 'react-bootstrap';
+import Button from '@mui/material/Button';
 
 
 // const BASE_URL = "https://hl-art-space.herokuapp.com/"
@@ -348,6 +349,7 @@ export default class MainPage extends React.Component {
             this.setState({
                 data: result.data
             })
+
         } else {
             let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
             this.setState({
@@ -358,6 +360,30 @@ export default class MainPage extends React.Component {
             this.setState(initialState)
         }
 
+    }
+
+    serachByRadioAndCheckBox = async () => {
+        console.log("testing 1238494")
+        if (this.state.medium || this.state.category) {
+            let params = {
+                "medium": this.state.medium,
+                "category": this.state.category
+            }
+
+            let result = await axios.get(BASE_URL + 'retrieve/artwork', { params })
+            this.setState({
+                data: result.data
+            })
+            this.setState(initialState)
+        } else {
+            let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
+            this.setState({
+                active: 'main',
+                show: 'block',
+                data: refreshData.data
+            })
+            this.setState(initialState)
+        }
     }
 
 
@@ -379,7 +405,7 @@ export default class MainPage extends React.Component {
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
-                            <Typography>Filter</Typography>
+                            <Typography>Search</Typography>
                         </AccordionSummary>
                         <AccordionDetails >
                             <Paper
@@ -402,45 +428,42 @@ export default class MainPage extends React.Component {
                                     <SearchIcon />
                                 </IconButton>
                             </Paper>
-
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion sx={{ m: 5, display: this.state.show }}>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                        >
-                            <Typography>Filter</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails >
                             <Paper
                                 component="form"
-                                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: "100%" }}
+                                sx={{ p: '2px 4px', width: "100%", mt: 3 }}
                             >
-                                <RadioGroup
-                                    aria-labelledby="demo-radio-buttons-group-label"
-                                    defaultValue="female"
-                                    name="radio-buttons-group"
-                                    sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-evenly" }}
-                                >
-                                    {this.renderRadioOption()}
-                                </RadioGroup>
+                                <FormLabel id="category-group-label">Category</FormLabel>
+                                <div sx={{ mt: 2 }}>
+                                    <RadioGroup
+                                        aria-labelledby="demo-radio-buttons-group-label"
+                                        defaultValue="female"
+                                        name="radio-buttons-group"
+                                        sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-evenly" }}
+                                    >
+                                        {this.renderRadioOption()}
+                                    </RadioGroup>
+                                </div>
                             </Paper>
                             <div >
-                                <FormLabel id="checkbox-group-label">Medium</FormLabel>
+
                                 <Paper
                                     component="form"
-                                    sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: "100%" }}
+                                    sx={{ p: '2px 4px', width: "100%", mt: 3 }}
                                 >
-                                    <FormGroup
-                                        sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-evenly" }}>
-                                        {this.renderCheckboxOption()}
-                                    </FormGroup>
-
+                                    <FormLabel id="checkbox-group-label">Medium</FormLabel>
+                                    <div sx={{ mt: 2 }}>
+                                        <FormGroup
+                                            sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-evenly" }}>
+                                            {this.renderCheckboxOption()}
+                                        </FormGroup>
+                                    </div>
                                 </Paper>
                             </div>
-
+                            <div style={{display:"flex", justifyContent: "flex-end"}}>
+                                <Button onClick={() => this.serachByRadioAndCheckBox()}
+                                    sx={{ mt: 3 }}
+                                    variant="contained">Search</Button>
+                            </div>
                         </AccordionDetails>
                     </Accordion>
                     {this.renderPage()}

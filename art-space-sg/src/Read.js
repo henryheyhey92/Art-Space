@@ -234,12 +234,9 @@ export default class Read extends React.Component {
                                         <Card sx={{ minWidth: 225, m: 2 }} >
                                             <CardMedia
                                                 component="img"
-                                                
+                                                sx={{ objectFit: "contain", height: 400 }}
                                                 image={data.image_link}
-                                                alt="green iguana"
-                                                
-                                                // sx={{ backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}
-                                            />
+                                                alt="green iguana"/>
                                             <CardContent sx={{ height: 100 }} key={data.name}>
                                                 <Typography gutterBottom variant="h5" component="div">
                                                     {data.name}
