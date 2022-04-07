@@ -344,6 +344,18 @@ export default class MainPage extends React.Component {
 
             let result = await axios.get(BASE_URL + "search/artwork", { params });
             console.log(result);
+
+            this.setState({
+                data: result.data
+            })
+        } else {
+            let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
+            this.setState({
+                active: 'main',
+                show: 'block',
+                data: refreshData.data
+            })
+            this.setState(initialState)
         }
 
     }
