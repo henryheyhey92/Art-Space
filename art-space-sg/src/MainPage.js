@@ -21,10 +21,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { ThreeKSharp } from '@mui/icons-material';
+import Checkbox from '@mui/material/Checkbox';
+import { FormGroup } from 'react-bootstrap';
 
 
-const BASE_URL = "https://hl-art-space.herokuapp.com/"
-// const BASE_URL = "https://3000-henryheyhey92-artspacedb-fcgyjiweags.ws-us38.gitpod.io/"
+// const BASE_URL = "https://hl-art-space.herokuapp.com/"
+const BASE_URL = "https://3000-henryheyhey92-artspacedb-fcgyjiweags.ws-us38.gitpod.io/"
 
 const initialState = {
     imageLinkName: '',
@@ -84,7 +86,8 @@ export default class MainPage extends React.Component {
         editbuttonflag: false,
         objectId: "",
 
-        categoryOptionsV2: []
+        categoryOptionsV2: [],
+        searchText: ""
     }
 
     async componentDidMount() {
@@ -285,10 +288,32 @@ export default class MainPage extends React.Component {
         this.setState(initialState)
     }
 
+    renderCheckboxOption() {
+        let checkboxes = [];
+        let temp = [];
+        console.log(this.state.mediumOptions.medium);
+        if (this.state.mediumOptions.medium) {
+            temp = this.state.mediumOptions.medium
+        }
+        console.log(temp)
+        if (temp) {
+            return temp.map(e => {
+                return <React.Fragment key={e.value}>
+                    <Checkbox
+                        name="medium"
+                        value={e.value}
+                        onChange={this.updateCheckboxes}
+                        checked={this.state.medium.includes(e.value)}
+                    /> {e.name}
+                </React.Fragment>
+            })
+        }
+        return temp
+    }
+
     renderRadioOption() {
         let options = [];
         let temp = [];
-        console.log(this.state.categoryOptions.art_space);
         if (this.state.categoryOptions.art_space) {
             temp = this.state.categoryOptions.art_space;
         }
@@ -309,6 +334,18 @@ export default class MainPage extends React.Component {
         }
 
         return options;
+    }
+
+    searchText = async () => {
+        if (this.state.searchText) {
+            let params = {
+                "searchText": this.state.searchText
+            }
+
+            let result = await axios.get(BASE_URL + "search/artwork", { params });
+            console.log(result);
+        }
+
     }
 
 
@@ -342,8 +379,14 @@ export default class MainPage extends React.Component {
                                     placeholder="Search"
                                     inputProps={{ 'aria-label': 'search' }}
                                     xs={12} sm={12} md={12}
+                                    type="text"
+                                    name="searchText"
+                                    value={this.state.searchText}
+                                    onChange={this.updateFormField}
                                 />
-                                <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+                                <IconButton sx={{ p: '10px' }}
+                                    aria-label="search"
+                                    onClick={() => this.searchText()}>
                                     <SearchIcon />
                                 </IconButton>
                             </Paper>
@@ -367,11 +410,25 @@ export default class MainPage extends React.Component {
                                     aria-labelledby="demo-radio-buttons-group-label"
                                     defaultValue="female"
                                     name="radio-buttons-group"
-                                    sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-evenly"}}
+                                    sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-evenly" }}
                                 >
                                     {this.renderRadioOption()}
                                 </RadioGroup>
                             </Paper>
+                            <div >
+                                <FormLabel id="checkbox-group-label">Medium</FormLabel>
+                                <Paper
+                                    component="form"
+                                    sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: "100%" }}
+                                >
+                                    <FormGroup
+                                        sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-evenly" }}>
+                                        {this.renderCheckboxOption()}
+                                    </FormGroup>
+
+                                </Paper>
+                            </div>
+
                         </AccordionDetails>
                     </Accordion>
                     {this.renderPage()}
