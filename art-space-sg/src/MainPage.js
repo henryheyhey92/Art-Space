@@ -289,10 +289,10 @@ export default class MainPage extends React.Component {
         let options = [];
         let temp = [];
         console.log(this.state.categoryOptions.art_space);
-        if(this.state.categoryOptions.art_space){
+        if (this.state.categoryOptions.art_space) {
             temp = this.state.categoryOptions.art_space;
         }
-        if(temp){
+        if (temp) {
             for (let o of temp) {
                 options.push(
                     <FormControlLabel
@@ -307,7 +307,7 @@ export default class MainPage extends React.Component {
                 )
             }
         }
-        
+
         return options;
     }
 
@@ -347,7 +347,7 @@ export default class MainPage extends React.Component {
                                     <SearchIcon />
                                 </IconButton>
                             </Paper>
-                            
+
                         </AccordionDetails>
                     </Accordion>
                     <Accordion sx={{ m: 5, display: this.state.show }}>
@@ -359,14 +359,19 @@ export default class MainPage extends React.Component {
                             <Typography>Filter</Typography>
                         </AccordionSummary>
                         <AccordionDetails >
-                            <RadioGroup
-                                aria-labelledby="demo-radio-buttons-group-label"
-                                defaultValue="female"
-                                name="radio-buttons-group"
-                                sx={{ display: 'flex', flexDirection: 'row' }}
+                            <Paper
+                                component="form"
+                                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: "100%" }}
                             >
-                                {this.renderRadioOption()}
-                            </RadioGroup>
+                                <RadioGroup
+                                    aria-labelledby="demo-radio-buttons-group-label"
+                                    defaultValue="female"
+                                    name="radio-buttons-group"
+                                    sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-evenly"}}
+                                >
+                                    {this.renderRadioOption()}
+                                </RadioGroup>
+                            </Paper>
                         </AccordionDetails>
                     </Accordion>
                     {this.renderPage()}
