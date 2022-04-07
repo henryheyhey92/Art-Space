@@ -112,10 +112,10 @@ export default class Read extends React.Component {
                                 xs={12} sm={8} md={6}
                                 component="img"
                                 width="100%"
-                                height="100%"
+                                
                                 image={this.state.cardData.image_link}
                                 alt="green iguana"
-                                sx={{ backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}
+                                sx={{ objectFit: "contain", height: 500 }}
                             />
                             <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
                                 <label>Description :</label>
@@ -234,10 +234,11 @@ export default class Read extends React.Component {
                                         <Card sx={{ minWidth: 225, m: 2 }} >
                                             <CardMedia
                                                 component="img"
-                                                height="200"
+                                                
                                                 image={data.image_link}
                                                 alt="green iguana"
-                                                sx={{ backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}
+                                                
+                                                // sx={{ backgroundSize: "contain", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}
                                             />
                                             <CardContent sx={{ height: 100 }} key={data.name}>
                                                 <Typography gutterBottom variant="h5" component="div">
