@@ -12,6 +12,7 @@ import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
+import TextField from '@mui/material/TextField';
 
 const sexSelection = [
     {
@@ -35,7 +36,6 @@ export default function Form(props) {
         })
     }
 
-    // need to find out how to maintain checkbox to be remain checked when edit
     function renderMediumOption() {
         return props.mediumOptions.medium.map(e => {
             return <React.Fragment key={e.value}>
@@ -71,41 +71,44 @@ export default function Form(props) {
         <Box sx={{ m: 5 }}>
             <Paper elevation={3}>
                 <Box
-                    component="form"
-                    sx={{
-                        '& > :not(style)': { m: 2, width: '25ch' },
-                    }}
-                    noValidate
-                    autoComplete="off"
+                    sx={{ m: 2, 
+                        display: "flex", 
+                        flexDirection: "column", 
+                        justifyContent: "center",
+                        minWdith: "sx" }}
                 >
-                    <label>
-                        Image link:
-                        <input className="textfieldbox"
-                            type='text'
-                            name='imageLinkName'
-                            value={props.imageLink}
-                            onChange={props.updateFormField} />
-                    </label>
-                    <label>
-                        Artwork name:
-                        <input className="textfieldbox"
-                            type='text'
-                            name='artWorkName'
-                            value={props.artWorkName}
-                            onChange={props.updateFormField} />
-                    </label>
-                    <label>
-                        Description:
-                        <textarea className='textDescriptionBox'
-                            type='text'
-                            name='description'
-                            value={props.description}
-                            onChange={props.updateFormField} />
-                    </label>
+                    <TextField id="name"
+                        label="Image Url"
+                        variant="outlined"
+                        name='imageLinkName'
+                        value={props.imageLink}
+                        onChange={props.updateFormField}
+                        className="textfield-image-url"
+                         />
+
+                    <TextField id="Artwork-name"
+                        label="Artwork Name"
+                        variant="outlined"
+                        name='artWorkName'
+                        value={props.artWorkName}
+                        onChange={props.updateFormField}
+                        className="textfield-style"
+                        />
+
+                    <TextField
+                        id="outlined-multiline-static"
+                        label="Description"
+                        multiline
+                        rows={4}
+                        name='description'
+                        value={props.description}
+                        onChange={props.updateFormField}
+                        className="textfield-style"
+                    />
                 </Box>
 
 
-                <FormControl style={{ width: "100%", display: 'flex' , justifyContent: 'space-evenly'}}>
+                <FormControl style={{ width: "100%", display: 'flex', justifyContent: 'space-evenly' }}>
                     <Box >
                         <Paper elevation={3}>
                             <FormLabel id="demo-radio-buttons-group-label">Category</FormLabel>
@@ -198,16 +201,16 @@ export default function Form(props) {
 
                 <Stack spacing={2} direction="row">
                     <div>
-                        { 
-                        !props.editBtn ? 
-                        <Button variant="contained"
-                            onClick={props.createArtWork}>
-                            Add
-                        </Button> : 
-                        <Button variant="contained"
-                            onClick={props.updateArtWork}>
-                            Update 
-                        </Button>
+                        {
+                            !props.editBtn ?
+                                <Button variant="contained"
+                                    onClick={props.createArtWork}>
+                                    Add
+                                </Button> :
+                                <Button variant="contained"
+                                    onClick={props.updateArtWork}>
+                                    Update
+                                </Button>
                         }
                     </div>
 

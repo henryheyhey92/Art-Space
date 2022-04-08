@@ -65,3 +65,11 @@ img{
 .texfieldbox{
   width: auto
 }
+
+.textfield-style{
+  margin: 5px!important;
+}
+
+.textfield-image-url{
+  margin: 20px 5px 5px 5px!important;
+}
