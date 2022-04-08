@@ -144,7 +144,6 @@ export default class MainPage extends React.Component {
     }
 
     updateArtWork = async () => {
-        console.log("Can edit/update ");
         let data = {
             "image_link": this.state.imageLinkName,
             "name": this.state.artWorkName,
@@ -161,7 +160,6 @@ export default class MainPage extends React.Component {
             "price": parseInt(this.state.price)
         }
         let response = await axios.put(BASE_URL + 'update/artwork/' + this.state.objectId, data);
-        console.log(response);
 
         let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
         this.setState({
@@ -174,7 +172,6 @@ export default class MainPage extends React.Component {
     }
 
     updateFormData = (childData) => {
-        console.log(childData);
         this.setState({
             imageLinkName: childData.image_link,
             artWorkName: childData.name,
@@ -279,7 +276,6 @@ export default class MainPage extends React.Component {
             "price": parseInt(this.state.price)
         }
         let response = await axios.post(BASE_URL + 'create/art/post', data);
-        console.log(response);
 
         let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
         this.setState({
@@ -293,11 +289,9 @@ export default class MainPage extends React.Component {
     renderCheckboxOption() {
         let checkboxes = [];
         let temp = [];
-        console.log(this.state.mediumOptions.medium);
         if (this.state.mediumOptions.medium) {
             temp = this.state.mediumOptions.medium
         }
-        console.log(temp)
         if (temp) {
             return temp.map(e => {
                 return <React.Fragment key={e.value}>
@@ -345,8 +339,6 @@ export default class MainPage extends React.Component {
             }
 
             let result = await axios.get(BASE_URL + "search/artwork", { params });
-            console.log(result);
-
             this.setState({
                 data: result.data
             })
@@ -364,7 +356,6 @@ export default class MainPage extends React.Component {
     }
 
     serachByRadioAndCheckBox = async () => {
-        console.log("testing 1238494")
         if (this.state.medium || this.state.category) {
             let params = {
                 "medium": this.state.medium,

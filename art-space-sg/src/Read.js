@@ -20,7 +20,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
-import Comments from './Comments';
+import Comments from './CommentsInput';
+import { Event } from '@mui/icons-material';
+import CommentsInput from './CommentsInput';
+import CommentsOutput from './CommentsOutput';
 
 
 // const BASE_URL = "https://hl-art-space.herokuapp.com/"
@@ -51,11 +54,12 @@ export default class Read extends React.Component {
         cardData: [],
         openDialog: "none",
         open: false,
-        comfirmPassword: ""
+        comfirmPassword: "",
+        commentData: []
     }
 
-    retrieveDate() {
-        let date = new Date(this.state.cardData.last_time_stamp)
+    retrieveDate(data) {
+        let date = new Date(data)
         return date.toLocaleDateString()
     }
 
@@ -152,25 +156,35 @@ export default class Read extends React.Component {
                             </Typography>
                             <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
                                 <label>Last Updated Time Stamp : </label>
-                                {this.retrieveDate()}
+                                {this.retrieveDate(this.state.cardData.last_time_stamp)}
                             </Typography>
+                        </Paper>
+                    </Box>
+
+                    <Box>
+                    {/* <ul>{this.renderComment()}</ul> */}
+                        <Paper elevation={3}>
+                            {this.state.commentData ?  
+                            <CommentsOutput 
+                                commentData={this.state.commentData}/>: 
+                            <h1>No comment</h1>}
                         </Paper>
                     </Box>
                     <Box>
                         <Paper elevation={3}
-                        sx={{
-                            display: this.state.hide,
-                            minWidth: 'xs',
-                            height: '300',
-                            mb: 5,
-                            ml: 5,
-                            mr: 5,
-                            flexWrap: 'nowrap',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            objectFit: 'contain'
-                        }} >
-                                <Comments />
+                            sx={{
+                                display: this.state.hide,
+                                minWidth: 'xs',
+                                height: '300',
+                                mb: 5,
+                                ml: 5,
+                                mr: 5,
+                                flexWrap: 'nowrap',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                objectFit: 'contain'
+                            }} >
+                            <CommentsInput />
                         </Paper>
                     </Box>
                 </React.Fragment>
@@ -180,13 +194,9 @@ export default class Read extends React.Component {
 
 
     checkPassword = async (password) => {
-        console.log(password);
-        console.log(this.state.cardData.id)
         let response = await axios.get(BASE_URL + 'retrieve/password/' + this.state.cardData._id + '/' + password)
-        console.log(response.data.result);
         if (response.data.result) {
             let deleteResponse = await axios.delete(BASE_URL + 'delete/artwork/' + this.state.cardData._id + '/' + password)
-            console.log(deleteResponse.status);
             if (deleteResponse.status === 200) {
                 this.closeDialog();
                 this.setInactive('block')
@@ -197,7 +207,7 @@ export default class Read extends React.Component {
                 this.props.refreshData(myBoolean);
             }
         } else {
-            console.log("false")
+            console.log("false check password")
         }
     }
 
@@ -239,16 +249,25 @@ export default class Read extends React.Component {
         })
     }
 
-    setActive = (data) => {
+    setActive = async (data) => {
+        console.log(data._id)
+        let params = {
+            "id": data._id
+        }
+        let commentResponse = await axios.get(BASE_URL + "retrieve/comment", { params });
+        console.log(commentResponse);
+
+        commentResponse = commentResponse || []
+
         this.setState({
             activeArtwork: "ShowOne",
             show: "none",
             cardData: data,
             hide: 'flex',
-            hideComment: 'block'
+            hideComment: 'block',
+            commentData: commentResponse.data.art_space
         })
         this.props.hideCreateButton("none");
-        console.log(this.state.cardData._id);
     }
 
     setEdit = (data) => {

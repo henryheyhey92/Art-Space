@@ -9,11 +9,12 @@ const Input = styled('input')({
     display: 'none',
 });
 
-export default class Comments extends React.Component {
+export default class CommentsInput extends React.Component {
     state = {
 
     }
 
+    
 
     // '& > :not(style)': { m: 2, width: '25ch', display: 'flex', 
     //             flexDirection: 'column', justifyContent: 'center' },
