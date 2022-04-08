@@ -115,8 +115,6 @@ export default class Read extends React.Component {
                                     onClick={() => this.deleteBtn(this.state.cardData)}
                                 >delete</Button>
                             </Box>
-
-
                             <Typography gutterBottom
                                 variant="h5"
                                 component="div"
@@ -138,7 +136,7 @@ export default class Read extends React.Component {
                             </Typography>
                             <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
                                 <label>Category :</label>
-                                {this.state.cardData.category}
+                                <Chip label={this.state.cardData.category} />
                             </Typography>
                             <div sx={{ m: 2 }}>
                                 <Stack direction="row" spacing={1} sx={{ m: 2 }}>
@@ -163,7 +161,7 @@ export default class Read extends React.Component {
                         </Paper>
                     </Box>
 
-                    <Box sx={{display: this.state.hideComment}}>
+                    <Box sx={{ display: this.state.hideComment }}>
                         <Paper elevation={3} sx={{ mb: 5, ml: 5, mr: 5 }}>
                             {this.state.commentData ?
                                 <CommentsOutput
@@ -200,7 +198,7 @@ export default class Read extends React.Component {
 
     addComment = async () => {
         let reqBody = {
-            "name" : this.state.commentBy,
+            "name": this.state.commentBy,
             "artwork_id": this.state.cardData._id,
             "comment": this.state.commentNote
         }
@@ -220,7 +218,7 @@ export default class Read extends React.Component {
             commentBy: "",
             commentNote: ""
         })
-        
+
     }
 
 

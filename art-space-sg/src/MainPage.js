@@ -24,6 +24,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import FormGroup from '@mui/material/FormGroup';
 import FormHelperText from '@mui/material/FormHelperText';
+import {validURL, errorInput} from './Validation';
 
 
 
@@ -52,23 +53,6 @@ export default class MainPage extends React.Component {
         data: [],
         active: 'main',
         show: 'block',
-        artwork: [
-            {
-                "image_link": "",
-                "name": "",
-                "description": "",
-                "category": "",
-                "medium": "",
-                "artist": {
-                    "name": "",
-                    "sex": "",
-                    "contact_no": null,
-                    "email": ""
-                },
-                "password": "",
-                "price": null
-            }
-        ],
 
         imageLinkName: '',
         artWorkName: '',
@@ -89,7 +73,30 @@ export default class MainPage extends React.Component {
         objectId: "",
 
         categoryOptionsV2: [],
-        searchText: ""
+        searchText: "",
+
+        //form error
+        formError: [
+            {
+                "image_link": "",
+                "name": "",
+                "description": "",
+                "category": "",
+                "medium": "",
+                "artist": {
+                    "name": "",
+                    "sex": "",
+                    "contact_no": null,
+                    "email": ""
+                },
+                "password": "",
+                "price": null
+            }
+        ],
+
+        errorForm: {
+            'img': true
+        }
     }
 
     async componentDidMount() {
@@ -139,7 +146,8 @@ export default class MainPage extends React.Component {
                 email={this.state.email}
                 price={this.state.price}
                 editBtn={this.state.editbuttonflag}
-                updateArtWork={this.updateArtWork} />
+                updateArtWork={this.updateArtWork}
+                errorForm={this.state.errorForm} />
         }
 
     }
@@ -238,11 +246,6 @@ export default class MainPage extends React.Component {
         }
     }
 
-    updateFormField = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
 
     //trigger renderForm 
     renderForm = () => {
@@ -261,7 +264,38 @@ export default class MainPage extends React.Component {
         })
     }
 
+    updateFormField = (e) => {
+        const {name, value} = e.target;
+        this.setState({
+            [name]: value
+        })
+    }
+
+    validation = (data) => {
+        this.setState({
+            errorForm: {
+                'img': true
+            }
+        })
+        console.log(data)
+        let errorImageLink = validURL(data.image_link);
+        console.log(errorImageLink)
+        if (!errorImageLink){
+            let errorData ={
+                'img' : errorImageLink
+            }
+            console.log(errorData.img)
+            this.setState({
+                errorForm: errorData
+            })
+        }
+        
+    }
+
+    // createArtWork = async () => {
+
     createArtWork = async () => {
+
         let data = {
             "image_link": this.state.imageLinkName,
             "name": this.state.artWorkName,
@@ -277,15 +311,17 @@ export default class MainPage extends React.Component {
             "password": this.state.password,
             "price": parseInt(this.state.price)
         }
-        let response = await axios.post(BASE_URL + 'create/art/post', data);
 
-        let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
-        this.setState({
-            active: 'main',
-            show: 'block',
-            data: refreshData.data
-        })
-        this.setState(initialState)
+        this.validation(data);
+        // let response = await axios.post(BASE_URL + 'create/art/post', data);
+
+        // let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
+        // this.setState({
+        //     active: 'main',
+        //     show: 'block',
+        //     data: refreshData.data
+        // })
+        // this.setState(initialState)
     }
 
     renderCheckboxOption() {

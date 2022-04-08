@@ -73,6 +73,10 @@ export default function Form(props) {
         return options;
     }
 
+    function checker(){
+        return false
+    }
+
     return (
         <Box sx={{ m: 5 }}>
             <Paper elevation={3} sx={{pb:1}}>
@@ -92,7 +96,8 @@ export default function Form(props) {
                         value={props.imageLink}
                         onChange={props.updateFormField}
                         className="textfield-image-url"
-                       
+                        error={!props.errorForm.img}
+                        helperText={!props.errorForm.img ? "Please input a valid url" : ""}
                     />
 
                     <TextField id="Artwork-name"
