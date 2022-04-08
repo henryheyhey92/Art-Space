@@ -20,8 +20,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
-import Comments from './CommentsInput';
-import { Event } from '@mui/icons-material';
 import CommentsInput from './CommentsInput';
 import CommentsOutput from './CommentsOutput';
 
@@ -162,8 +160,7 @@ export default class Read extends React.Component {
                     </Box>
 
                     <Box>
-                    {/* <ul>{this.renderComment()}</ul> */}
-                        <Paper elevation={3}>
+                        <Paper elevation={3} sx={{mb: 5, ml: 5, mr: 5}}>
                             {this.state.commentData ?  
                             <CommentsOutput 
                                 commentData={this.state.commentData}/>: 

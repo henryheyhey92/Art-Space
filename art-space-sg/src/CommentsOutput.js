@@ -1,8 +1,38 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
-export default class CommentsOutput extends React.Component{
-    state={
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: "#2196f3",
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
+
+
+export default class CommentsOutput extends React.Component {
+    state = {
 
     }
 
@@ -15,28 +45,34 @@ export default class CommentsOutput extends React.Component{
         let data = this.props.commentData
         return data.map(event => {
             return (
-                <div key={event._id}>
-                    <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
-                        <label>Name :</label>
+                <StyledTableRow key={event._id}>
+                    <StyledTableCell component="th" scope="row">
                         {event.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
-                        <label>Comment :</label>
-                        {event.comment}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
-                        <label>Last time stamp :</label>
-                        {this.retrieveDate(event.last_time_stamp)}
-                    </Typography>
-                </div>
+                    </StyledTableCell>
+                    <StyledTableCell align="center">{event.comment}</StyledTableCell>
+                    <StyledTableCell align="center">{this.retrieveDate(event.last_time_stamp)}</StyledTableCell>
+                </StyledTableRow>
             )
         })
     }
 
-    render(){
+    render() {
         return (
             <React.Fragment>
-                {this.renderComment()}
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 'sx' }} aria-label='customized table'>
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>Name</StyledTableCell>
+                                <StyledTableCell align="center">Comment</StyledTableCell>
+                                <StyledTableCell align="center">Comment Date</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {this.renderComment()}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </React.Fragment>
         )
     }
