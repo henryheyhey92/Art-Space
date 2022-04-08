@@ -21,8 +21,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { FormGroup } from 'react-bootstrap';
 import Button from '@mui/material/Button';
+import FormGroup from '@mui/material/FormGroup';
+import FormHelperText from '@mui/material/FormHelperText';
+
 
 
 // const BASE_URL = "https://hl-art-space.herokuapp.com/"
@@ -287,7 +289,6 @@ export default class MainPage extends React.Component {
     }
 
     renderCheckboxOption() {
-        let checkboxes = [];
         let temp = [];
         if (this.state.mediumOptions.medium) {
             temp = this.state.mediumOptions.medium
@@ -295,12 +296,17 @@ export default class MainPage extends React.Component {
         if (temp) {
             return temp.map(e => {
                 return <React.Fragment key={e.value}>
-                    <Checkbox
-                        name="medium"
-                        value={e.value}
-                        onChange={this.updateCheckboxes}
-                        checked={this.state.medium.includes(e.value)}
-                    /> {e.name}
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                name="medium"
+                                value={e.value}
+                                onChange={this.updateCheckboxes}
+                                checked={this.state.medium.includes(e.value)}
+                                sx={{ pr: 1 }}
+                            />
+                        } label={e.name}
+                    />
                 </React.Fragment>
             })
         }
@@ -422,19 +428,18 @@ export default class MainPage extends React.Component {
                             </Paper>
                             <Paper
                                 component="form"
-                                sx={{ p: '2px 4px', width: "100%", mt: 3 }}
+                                sx={{ p: '2px 4px', width: "100%", mt: 3 }} elevation={3}
                             >
-                                <FormLabel id="category-group-label">Category</FormLabel>
-                                <div sx={{ mt: 2 }}>
+                                <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                                    <FormLabel id="category-group-label">Category</FormLabel>
                                     <RadioGroup
                                         aria-labelledby="demo-radio-buttons-group-label"
-                                        defaultValue="female"
                                         name="radio-buttons-group"
                                         sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-evenly" }}
                                     >
                                         {this.renderRadioOption()}
                                     </RadioGroup>
-                                </div>
+                                </FormControl>
                             </Paper>
                             <div >
 
@@ -442,16 +447,16 @@ export default class MainPage extends React.Component {
                                     component="form"
                                     sx={{ p: '2px 4px', width: "100%", mt: 3 }}
                                 >
-                                    <FormLabel id="checkbox-group-label">Medium</FormLabel>
-                                    <div sx={{ mt: 2 }}>
+                                    <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                                        <FormLabel id="checkbox-group-label">Medium</FormLabel>
                                         <FormGroup
                                             sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-evenly" }}>
                                             {this.renderCheckboxOption()}
                                         </FormGroup>
-                                    </div>
+                                    </FormControl>
                                 </Paper>
                             </div>
-                            <div style={{display:"flex", justifyContent: "flex-end"}}>
+                            <div style={{ display: "flex", justifyContent: "flex-end" }}>
                                 <Button onClick={() => this.serachByRadioAndCheckBox()}
                                     sx={{ mt: 3 }}
                                     variant="contained">Search</Button>

@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
+import { FormGroup } from 'react-bootstrap';
 
 const sexSelection = [
     {
@@ -39,12 +40,16 @@ export default function Form(props) {
     function renderMediumOption() {
         return props.mediumOptions.medium.map(e => {
             return <React.Fragment key={e.value}>
-                <Checkbox
-                    name="medium"
-                    value={e.value}
-                    onChange={props.updateMediumCheckBox}
-                    checked={props.medium.includes(e.value)}
-                /> {e.name}
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            name="medium"
+                            value={e.value}
+                            onChange={props.updateMediumCheckBox}
+                            checked={props.medium.includes(e.value)}
+                        />
+                    } label={e.name}
+                />
             </React.Fragment>
         })
     }
@@ -61,7 +66,7 @@ export default function Form(props) {
                     name='category'
                     onChange={props.updateFormField}
                     checked={props.category === o.value}
-                    style={{ minWidth: 125 }} />
+                    sx={{ minWidth: 125 }} />
             )
         }
         return options;
@@ -71,11 +76,13 @@ export default function Form(props) {
         <Box sx={{ m: 5 }}>
             <Paper elevation={3}>
                 <Box
-                    sx={{ m: 2, 
-                        display: "flex", 
-                        flexDirection: "column", 
+                    sx={{
+                        m: 2,
+                        display: "flex",
+                        flexDirection: "column",
                         justifyContent: "center",
-                        minWdith: "sx" }}
+                        minWdith: "sx"
+                    }}
                 >
                     <TextField id="name"
                         label="Image Url"
@@ -84,7 +91,7 @@ export default function Form(props) {
                         value={props.imageLink}
                         onChange={props.updateFormField}
                         className="textfield-image-url"
-                         />
+                    />
 
                     <TextField id="Artwork-name"
                         label="Artwork Name"
@@ -93,7 +100,7 @@ export default function Form(props) {
                         value={props.artWorkName}
                         onChange={props.updateFormField}
                         className="textfield-style"
-                        />
+                    />
 
                     <TextField
                         id="outlined-multiline-static"
@@ -106,33 +113,32 @@ export default function Form(props) {
                         className="textfield-style"
                     />
                 </Box>
+                <Box sx={{m:2}}>
+                <Paper elevation={3} component="form"
+                    sx={{ p: '2px 4px', width: "100%" }}>
+                    <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
 
+                        <FormLabel id="demo-radio-buttons-group-label">Category</FormLabel>
+                        <RadioGroup
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            name="radio-buttons-group"
+                            sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-evenly" }}                            >
+                            {renderCatergoryOption()}
+                        </RadioGroup>
 
-                <FormControl style={{ width: "100%", display: 'flex', justifyContent: 'space-evenly' }}>
-                    <Box >
-                        <Paper elevation={3}>
-                            <FormLabel id="demo-radio-buttons-group-label">Category</FormLabel>
-                            <RadioGroup
-                                aria-labelledby="demo-radio-buttons-group-label"
-                                name="radio-buttons-group"
-                                sx={{ display: 'flex', flexDirection: 'row' }}
-                            >
-                                {renderCatergoryOption()}
-                            </RadioGroup>
-                        </Paper>
-                    </Box>
-                </FormControl>
-
-
-                <FormControl sx={{ display: 'flex' }}>
-                    <Box>
-                        <Paper elevation={3}>
-                            <FormLabel id="checkbox-group-label">Medium</FormLabel>
-                            {renderMediumOption()}
-                        </Paper>
-                    </Box>
-                </FormControl>
-
+                    </FormControl>
+                </Paper>
+                </Box>
+                <Box sx={{ m: 2 }}>
+                    <Paper elevation={3}>
+                        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                            <FormLabel id="checkbox-group-label" sx={{ p: 1 }}>Medium</FormLabel>
+                            <FormGroup sx={{ display: 'flex', flexDirection: "row", justifyContent: "space-evenly" }}>
+                                {renderMediumOption()}
+                            </FormGroup>
+                        </FormControl>
+                    </Paper>
+                </Box>
                 {/* Artist particulars  */}
                 <Box
                     component="form"
