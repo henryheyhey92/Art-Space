@@ -10,11 +10,10 @@ const Input = styled('input')({
 });
 
 export default class CommentsInput extends React.Component {
+    
     state = {
 
     }
-
-    
 
     // '& > :not(style)': { m: 2, width: '25ch', display: 'flex', 
     //             flexDirection: 'column', justifyContent: 'center' },
@@ -24,19 +23,26 @@ export default class CommentsInput extends React.Component {
                     sx={{ m: 2 }}
                     id="outlined-basic"
                     label="Name"
-                    variant="outlined" />
+                    variant="outlined"
+                    name="commentBy"
+                    value={this.props.commentBy}
+                    onChange={this.props.updateReadFormField} />
                 <TextField
                     sx={{ m: 2 }}
                     id="outlined-multiline-static"
                     label="Comment"
                     multiline
                     rows={4}
-                    defaultValue="Default Value"
+                    name="commentNote"
+                    value={this.props.commentNote}
+                    onChange={this.props.updateReadFormField}
                 />
                 <label htmlFor="contained-button-file">
-                    <Input accept="image/*" id="contained-button-file" multiple type="file" />
-                    <Button variant="contained" component="span" sx={{ m: 2 }}>
-                        Upload
+                    <Button variant="contained" 
+                            component="span" 
+                            sx={{ m: 2 }}
+                            onClick={this.props.addComment}>
+                        Add
                     </Button>
                 </label>
         </React.Fragment>)

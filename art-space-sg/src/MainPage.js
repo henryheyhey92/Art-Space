@@ -20,7 +20,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { ThreeKSharp } from '@mui/icons-material';
 import Checkbox from '@mui/material/Checkbox';
 import { FormGroup } from 'react-bootstrap';
 import Button from '@mui/material/Button';
@@ -160,7 +159,8 @@ export default class MainPage extends React.Component {
             "price": parseInt(this.state.price)
         }
         let response = await axios.put(BASE_URL + 'update/artwork/' + this.state.objectId, data);
-
+        console.log("for update log");
+        console.log(response);
         let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
         this.setState({
             active: 'main',

@@ -27,7 +27,7 @@ export default function FixedBottomNavigation() {
 
   // }
   function triggerSearchUI(){
-    console.log("Test here");
+   
   }
 
   return (

@@ -53,7 +53,11 @@ export default class Read extends React.Component {
         openDialog: "none",
         open: false,
         comfirmPassword: "",
-        commentData: []
+        //for comment use
+        commentData: [],
+        commentBy: "",
+        commentNote: "",
+        currentArtworkId: ""
     }
 
     retrieveDate(data) {
@@ -159,12 +163,13 @@ export default class Read extends React.Component {
                         </Paper>
                     </Box>
 
-                    <Box>
-                        <Paper elevation={3} sx={{mb: 5, ml: 5, mr: 5}}>
-                            {this.state.commentData ?  
-                            <CommentsOutput 
-                                commentData={this.state.commentData}/>: 
-                            <h1>No comment</h1>}
+                    <Box sx={{display: this.state.hideComment}}>
+                        <Paper elevation={3} sx={{ mb: 5, ml: 5, mr: 5 }}>
+                            {this.state.commentData ?
+                                <CommentsOutput
+                                    commentData={this.state.commentData}
+                                /> :
+                                <h1>No comment</h1>}
                         </Paper>
                     </Box>
                     <Box>
@@ -181,12 +186,41 @@ export default class Read extends React.Component {
                                 justifyContent: 'center',
                                 objectFit: 'contain'
                             }} >
-                            <CommentsInput />
+                            <CommentsInput
+                                commentBy={this.state.commentBy}
+                                commentNote={this.state.commentNote}
+                                updateReadFormField={this.updateReadFormField}
+                                addComment={() => this.addComment()} />
                         </Paper>
                     </Box>
                 </React.Fragment>
             )
         }
+    }
+
+    addComment = async () => {
+        let reqBody = {
+            "name" : this.state.commentBy,
+            "artwork_id": this.state.cardData._id,
+            "comment": this.state.commentNote
+        }
+        let response = await axios.post(BASE_URL + 'create/comment', reqBody);
+        console.log(response);
+
+        let params = {
+            "id": this.state.currentArtworkId
+        }
+        //retrieve comment code
+        let commentResponse = await axios.get(BASE_URL + "retrieve/comment", { params });
+        console.log(commentResponse);
+        console.log(this.state.commentData);
+
+        this.setState({
+            commentData: commentResponse.data.art_space,
+            commentBy: "",
+            commentNote: ""
+        })
+        
     }
 
 
@@ -198,7 +232,8 @@ export default class Read extends React.Component {
                 this.closeDialog();
                 this.setInactive('block')
                 this.setState({
-                    open: false
+                    open: false,
+                    currentArtworkId: ""
                 })
                 let myBoolean = true;
                 this.props.refreshData(myBoolean);
@@ -221,7 +256,8 @@ export default class Read extends React.Component {
             activeArtwork: "ShowAll",
             show: 'flex',
             hide: "none",
-            hideComment: 'none'
+            hideComment: 'none',
+            currentArtworkId: ""
         })
         this.props.showCreateButton("block");
     }
@@ -235,22 +271,27 @@ export default class Read extends React.Component {
             open: true
         })
         // this.props.deleteArtWork(e);
-
     }
 
     closeDialog = () => {
         this.setState({
-            hide: "none",
-            hideComment: 'none',
+            hide: "flex",
+            hideComment: 'block',
             open: false
         })
     }
 
     setActive = async (data) => {
         console.log(data._id)
+
+        this.setState({
+            currentArtworkId: data._id
+        })
+
         let params = {
             "id": data._id
         }
+        //retrieve comment code
         let commentResponse = await axios.get(BASE_URL + "retrieve/comment", { params });
         console.log(commentResponse);
 
