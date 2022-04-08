@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import Chip from '@mui/material/Chip';  
+import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -46,8 +46,8 @@ export default class Read extends React.Component {
     state = {
         activeArtwork: "ShowAll",
         show: "flex",
-        hide: "flex",
-        hideComment : 'block',
+        hide: "none",
+        hideComment: 'none',
         cardData: [],
         openDialog: "none",
         open: false,
@@ -121,7 +121,7 @@ export default class Read extends React.Component {
                                 xs={12} sm={8} md={6}
                                 component="img"
                                 width="100%"
-                                
+
                                 image={this.state.cardData.image_link}
                                 alt="green iguana"
                                 sx={{ objectFit: "contain", height: 300 }}
@@ -156,23 +156,21 @@ export default class Read extends React.Component {
                             </Typography>
                         </Paper>
                     </Box>
-                    <Box
-                    sx={{
-                        display: this.state.hide,
-                        flexWrap: 'wrap',
-                        '& > :not(style)': {
-                            mb: 5 ,
+                    <Box>
+                        <Paper elevation={3}
+                        sx={{
+                            display: this.state.hide,
+                            minWidth: 'xs',
+                            height: '300',
+                            mb: 5,
                             ml: 5,
                             mr: 5,
-                            width: '100%',
-                            minWidth: 'xs',
-                            minHeight: 280
-                        },
-                    }}>
-                        <Paper elevation={3} >
-                            <div sx={{display: "flex"}}>
+                            flexWrap: 'nowrap',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            objectFit: 'contain'
+                        }} >
                                 <Comments />
-                            </div>
                         </Paper>
                     </Box>
                 </React.Fragment>
@@ -214,7 +212,9 @@ export default class Read extends React.Component {
     setInactive = (e) => {
         this.setState({
             activeArtwork: "ShowAll",
-            show: 'flex'
+            show: 'flex',
+            hide: "none",
+            hideComment: 'none'
         })
         this.props.showCreateButton("block");
     }
@@ -223,6 +223,7 @@ export default class Read extends React.Component {
     deleteBtn = (e) => {
         this.setState({
             hide: "none",
+            hideComment: 'none',
             openDialog: "block",
             open: true
         })
@@ -233,7 +234,7 @@ export default class Read extends React.Component {
     closeDialog = () => {
         this.setState({
             hide: "none",
-            hideComment : 'none',
+            hideComment: 'none',
             open: false
         })
     }
@@ -242,7 +243,9 @@ export default class Read extends React.Component {
         this.setState({
             activeArtwork: "ShowOne",
             show: "none",
-            cardData: data
+            cardData: data,
+            hide: 'flex',
+            hideComment: 'block'
         })
         this.props.hideCreateButton("none");
         console.log(this.state.cardData._id);
@@ -269,7 +272,7 @@ export default class Read extends React.Component {
                                                 component="img"
                                                 sx={{ objectFit: "contain", height: 400 }}
                                                 image={data.image_link}
-                                                alt="green iguana"/>
+                                                alt="green iguana" />
                                             <CardContent sx={{ height: 100 }} key={data.name}>
                                                 <Typography gutterBottom variant="h5" component="div">
                                                     {data.name}
@@ -287,10 +290,10 @@ export default class Read extends React.Component {
                                         </Card>
                                     </Grid>
                                 )
-                            })} </Grid> </div> : 
-                            <Box sx={{ display: 'flex' , size: "100", justifyContent: "center", mt: 30, thickness: 10}}>
-                                    <CircularProgress />
-                            </Box>
+                            })} </Grid> </div> :
+                    <Box sx={{ display: 'flex', size: "100", justifyContent: "center", mt: 30, thickness: 10 }}>
+                        <CircularProgress />
+                    </Box>
                 }
             </React.Fragment>
         )
