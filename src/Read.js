@@ -394,15 +394,17 @@ export default class Read extends React.Component {
                                                 sx={{ objectFit: "contain", height: 400 }}
                                                 image={data.image_link}
                                                 alt="green iguana" />
-                                            <CardContent sx={{ height: 100 }} key={data.name}>
+                                            <CardContent sx={{ height: 50 }} key={data.name}>
                                                 <Typography gutterBottom variant="h5" component="div">
                                                     {data.name}
                                                 </Typography>
-                                                <Typography variant="body2" color="text.secondary" component="div">
+                                                {/* <Typography variant="body2" color="text.secondary" component="div">
+                                                    <Box sx={{textOverflow: 'clip',overflow: 'hidden'}}>
                                                     {data.description}
-                                                </Typography>
+                                                    </Box>
+                                                </Typography> */}
                                             </CardContent>
-                                            <CardActions key={data.price}>
+                                            <CardActions sx={{mt: 1}} key={data.price}>
                                                 <Button size="small"
                                                     onClick={() => this.setEdit(data)}>Edit</Button>
                                                 <Button size="small"
