@@ -14,6 +14,7 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
 import { FormGroup } from 'react-bootstrap';
+import FormHelperText from '@mui/material/FormHelperText';
 import { styled } from '@mui/material/styles';
 
 const sexSelection = [
@@ -96,8 +97,8 @@ export default function Form(props) {
                         value={props.imageLink}
                         onChange={props.updateFormField}
                         className="textfield-image-url"
-                        error={!props.errorForm.img}
-                        helperText={!props.errorForm.img ? "Please input a valid url" : ""}
+                        error={!props.errorForm.img[0]}
+                        helperText={props.errorForm.img[1]}
                     />
 
                     <TextField id="Artwork-name"
@@ -108,6 +109,8 @@ export default function Form(props) {
                         onChange={props.updateFormField}
                         className="textfield-style"
                         type="text"
+                        error={!props.errorForm.artWorkName[0]}
+                        helperText={props.errorForm.artWorkName[1]}
                     />
 
                     <TextField
@@ -120,12 +123,17 @@ export default function Form(props) {
                         onChange={props.updateFormField}
                         className="textfield-style"
                         type="text"
+                        error={!props.errorForm.description[0]}
+                        helperText={props.errorForm.description[1]}
                     />
                 </Box>
                 <Box sx={{ m: 2 }}>
                     <Paper elevation={3} component="form"
                         sx={{ p: '2px 4px', width: "100%" }}>
-                        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                        <FormControl sx={{ m: 3 }} 
+                                    component="fieldset" 
+                                    variant="standard" 
+                                    error={!props.errorForm.category[0]}>
 
                             <FormLabel id="demo-radio-buttons-group-label">Category</FormLabel>
                             <RadioGroup
@@ -134,17 +142,21 @@ export default function Form(props) {
                                 sx={{ display: 'flex', flexDirection: 'row', justifyContent: "space-evenly" }}                            >
                                 {renderCatergoryOption()}
                             </RadioGroup>
-
+                            <FormHelperText>{props.errorForm.category[1]}</FormHelperText>
                         </FormControl>
                     </Paper>
                 </Box>
                 <Box sx={{ m: 2 }}>
                     <Paper elevation={3}>
-                        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+                        <FormControl sx={{ m: 3 }} 
+                                    component="fieldset" 
+                                    variant="standard" 
+                                    error={!props.errorForm.medium[0]}>
                             <FormLabel id="checkbox-group-label" sx={{ p: 1 }}>Medium</FormLabel>
                             <FormGroup sx={{ display: 'flex', flexDirection: "row", justifyContent: "space-evenly" }}>
                                 {renderMediumOption()}
                             </FormGroup>
+                            <FormHelperText>{props.errorForm.medium[1]}</FormHelperText>
                         </FormControl>
                     </Paper>
                 </Box>
@@ -166,9 +178,11 @@ export default function Form(props) {
                         onChange={props.updateFormField}
                         className="textfield-style"
                         type="text"
+                        error={!props.errorForm.artistName[0]}
+                        helperText={props.errorForm.artistName[1]}
                     />
-                    <FormControl>
-                        <InputLabel id="demo-simple-select-label">Sex</InputLabel>
+                    <FormControl error={!props.errorForm.artistGender[0]}>
+                        <InputLabel id="demo-simple-select-label">Gender</InputLabel>
                         <Select
                             value={props.sex}
                             label="sex"
@@ -177,6 +191,7 @@ export default function Form(props) {
                         >
                             {renderSex()}
                         </Select>
+                        <FormHelperText>{props.errorForm.artistGender[1]}</FormHelperText>
                     </FormControl>
 
                     <TextField id="contact-number"
@@ -186,8 +201,10 @@ export default function Form(props) {
                         value={props.contactNum}
                         onChange={props.updateFormField}
                         className="textfield-style"
-                        type="number"
+                        type="text"
                         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                        error={!props.errorForm.contact[0]}
+                        helperText={props.errorForm.contact[1]}
                     />
                      <TextField id="create-edit-password"
                         label="password"
@@ -197,6 +214,8 @@ export default function Form(props) {
                         onChange={props.updateFormField}
                         className="textfield-style"
                         type="password"
+                        error={!props.errorForm.password[0]}
+                        helperText={props.errorForm.password[1]}
                     />
                      <TextField id="create-edit-email"
                         label="email"
@@ -206,6 +225,8 @@ export default function Form(props) {
                         onChange={props.updateFormField}
                         className="textfield-style"
                         type="text"
+                        error={!props.errorForm.email[0]}
+                        helperText={props.errorForm.email[1]}
                     />
                      <TextField id="create-price"
                         label="price"
@@ -215,6 +236,8 @@ export default function Form(props) {
                         onChange={props.updateFormField}
                         className="textfield-style"
                         type="number"
+                        error={!props.errorForm.price[0]}
+                        helperText={props.errorForm.price[1]}
                     />
                 </Box>
 

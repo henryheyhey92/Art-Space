@@ -24,8 +24,8 @@ import CommentsInput from './CommentsInput';
 import CommentsOutput from './CommentsOutput';
 
 
-// const BASE_URL = "https://hl-art-space.herokuapp.com/"
-const BASE_URL = "https://3000-henryheyhey92-artspacedb-fcgyjiweags.ws-us38.gitpod.io/"
+const BASE_URL = "https://hl-art-space.herokuapp.com/"
+// const BASE_URL = "https://3000-henryheyhey92-artspacedb-fcgyjiweags.ws-us38.gitpod.io/"
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Read from './Read';
-import Fab from '@mui/material/Fab';
+import Fab, { fabClasses } from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Form from './Form';
 import FixedBottomNavigation from './FixedBottomNavigation';
@@ -24,12 +24,16 @@ import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import FormGroup from '@mui/material/FormGroup';
 import FormHelperText from '@mui/material/FormHelperText';
-import {validURL, errorInput} from './Validation';
+import {
+    validURL, validCategory, validMedium, validGender,
+    validDescription, validateEmail, validatePassword, validArtWorkName, validName,
+    validContactNumber, validatePrice
+} from './Validation';
 
 
 
-// const BASE_URL = "https://hl-art-space.herokuapp.com/"
-const BASE_URL = "https://3000-henryheyhey92-artspacedb-fcgyjiweags.ws-us38.gitpod.io/"
+const BASE_URL = "https://hl-art-space.herokuapp.com/"
+// const BASE_URL = "https://3000-henryheyhey92-artspacedb-fcgyjiweags.ws-us38.gitpod.io/"
 
 const initialState = {
     imageLinkName: '',
@@ -44,6 +48,20 @@ const initialState = {
     email: "",
     price: "",
     objectId: ""
+}
+
+const initialValidationState = {
+    'img': [true, ""],
+    'artWorkName': [true, ""],
+    'description': [true, ""],
+    'category': [true, ""],
+    'medium': [true, ""],
+    'artistName': [true, ""],
+    'artistGender': [true, ""],
+    'contact': [true, ""],
+    'email': [true, ""],
+    'password': [true, ""],
+    'price': [true, ""]
 }
 
 
@@ -94,9 +112,7 @@ export default class MainPage extends React.Component {
             }
         ],
 
-        errorForm: {
-            'img': true
-        }
+        errorForm: initialValidationState
     }
 
     async componentDidMount() {
@@ -262,10 +278,14 @@ export default class MainPage extends React.Component {
             show: 'block',
             editbuttonflag: false
         })
+        this.setState({
+            errorForm: initialValidationState
+        })
+
     }
 
     updateFormField = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         this.setState({
             [name]: value
         })
@@ -273,26 +293,61 @@ export default class MainPage extends React.Component {
 
     validation = (data) => {
         this.setState({
-            errorForm: {
-                'img': true
-            }
+            errorForm: initialValidationState
         })
         console.log(data)
         let errorImageLink = validURL(data.image_link);
-        console.log(errorImageLink)
-        if (!errorImageLink){
-            let errorData ={
-                'img' : errorImageLink
+        let errorCategory = validCategory(data.category);
+        let errorMedium = validMedium(data.medium);
+        let errorGender = validGender(data.artist.sex);
+
+        let errorArtWorkName = validArtWorkName(data.name);
+        let errorDescription = validDescription(data.description);
+        let errorArtistName = validName(data.artist.name);
+        let errorArtistContactNo = validContactNumber(data.artist.contact_no);
+        let errorArtistEmail = validateEmail(data.artist.email);
+
+        let errorPassword = validatePassword(data.password);
+        let errorPrice = validatePrice(data.price);
+
+        console.log(data.artist.sex)
+        console.log(errorGender)
+        //if result is false
+        if (!errorImageLink[0] ||
+            !errorCategory[0] ||
+            !errorMedium[0] ||
+            !errorGender[0] ||
+            !errorArtWorkName[0] ||
+            !errorDescription[0] ||
+            !errorArtistName[0] ||
+            !errorArtistContactNo[0] ||
+            !errorArtistEmail[0] ||
+            !errorPassword[0] ||
+            !errorPrice[0]) {
+            let errorData = {
+                'img': errorImageLink,
+                'artWorkName': errorArtWorkName,
+                'description': errorDescription,
+                'category': errorCategory,
+                'medium': errorMedium,
+                'artistName': errorArtistName,
+                'artistGender': errorGender,
+                'contact': errorArtistContactNo,
+                'email': errorArtistEmail,
+                'password': errorPassword,
+                'price': errorPrice
             }
-            console.log(errorData.img)
             this.setState({
                 errorForm: errorData
             })
+
+            return false
+        } else {
+            return true
         }
-        
+
     }
 
-    // createArtWork = async () => {
 
     createArtWork = async () => {
 
@@ -311,17 +366,20 @@ export default class MainPage extends React.Component {
             "password": this.state.password,
             "price": parseInt(this.state.price)
         }
+        console.log(this.validation(data))
 
-        this.validation(data);
-        // let response = await axios.post(BASE_URL + 'create/art/post', data);
+        if (this.validation(data)) {
+            let response = await axios.post(BASE_URL + 'create/art/post', data);
+            console.log(response)
+            let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
+            this.setState({
+                active: 'main',
+                show: 'block',
+                data: refreshData.data
+            })
+            this.setState(initialState)
+        }
 
-        // let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
-        // this.setState({
-        //     active: 'main',
-        //     show: 'block',
-        //     data: refreshData.data
-        // })
-        // this.setState(initialState)
     }
 
     renderCheckboxOption() {
