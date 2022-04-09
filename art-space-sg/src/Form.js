@@ -15,7 +15,6 @@ import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
 import { FormGroup } from 'react-bootstrap';
 import FormHelperText from '@mui/material/FormHelperText';
-import { styled } from '@mui/material/styles';
 
 const sexSelection = [
     {
@@ -74,9 +73,7 @@ export default function Form(props) {
         return options;
     }
 
-    function checker(){
-        return false
-    }
+
 
     return (
         <Box sx={{ m: 5 }}>

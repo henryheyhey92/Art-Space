@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Read from './Read';
-import Fab, { fabClasses } from '@mui/material/Fab';
+import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Form from './Form';
 import FixedBottomNavigation from './FixedBottomNavigation';
@@ -23,7 +23,6 @@ import FormLabel from '@mui/material/FormLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import FormGroup from '@mui/material/FormGroup';
-import FormHelperText from '@mui/material/FormHelperText';
 import {
     validURL, validCategory, validMedium, validGender,
     validDescription, validateEmail, validatePassword, validArtWorkName, validName,
