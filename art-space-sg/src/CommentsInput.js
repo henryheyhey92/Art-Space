@@ -14,8 +14,6 @@ export default class CommentsInput extends React.Component {
 
     }
 
-    // '& > :not(style)': { m: 2, width: '25ch', display: 'flex', 
-    //             flexDirection: 'column', justifyContent: 'center' },
     render() {
         return (<React.Fragment>
                 <TextField

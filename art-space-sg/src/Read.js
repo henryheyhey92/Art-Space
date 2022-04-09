@@ -25,20 +25,6 @@ import CommentsOutput from './CommentsOutput';
 const BASE_URL = "https://hl-art-space.herokuapp.com/"
 // const BASE_URL = "https://3000-henryheyhey92-artspacedb-fcgyjiweags.ws-us38.gitpod.io/"
 
-// const ExpandMore = styled((props) => {
-//     const { expand, ...other } = props;
-//     return <IconButton {...other} />;
-// })(({ theme, expand }) => ({
-//     transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-//     marginLeft: 'auto',
-//     transition: theme.transitions.create('transform', {
-//         duration: theme.transitions.duration.shortest,
-//     }),
-// }));
-
-// const theme = {
-//     spacing: 8,
-// }
 
 export default class Read extends React.Component {
 
@@ -55,7 +41,12 @@ export default class Read extends React.Component {
         commentData: [],
         commentBy: "",
         commentNote: "",
-        currentArtworkId: ""
+        currentArtworkId: "",
+
+        // for edit
+        openEdit: false,
+        currentArtWorkData: {},
+        correctPassword: true
     }
 
     retrieveDate(data) {
@@ -85,6 +76,8 @@ export default class Read extends React.Component {
                                 onChange={this.updateReadFormField}
                                 name="comfirmPassword"
                                 value={this.state.comfirmPassword}
+                                error={!this.state.correctPassword}
+                                helperText={!this.state.correctPassword ? "wrong password" : ""}
                             />
                         </DialogContent>
                         <DialogActions>
@@ -117,7 +110,7 @@ export default class Read extends React.Component {
                                 variant="h5"
                                 component="span"
                                 sx={{ m: 2 }}
-                                >
+                            >
                                 {this.state.cardData.name}
                             </Typography>
                             <CardMedia
@@ -137,18 +130,18 @@ export default class Read extends React.Component {
                                 <label>Category :</label>
                                 <Chip label={this.state.cardData.category} />
                             </Typography>
-                            
-                                <Stack direction="row" spacing={1} sx={{ m: 2 }}>
-                                    <Typography variant="body2" color="text.secondary" component="div">
-                                        <label>Medium :</label>
-                                    </Typography>
-                                    {this.state.cardData.medium.map(mediumName => {
-                                        return (
-                                            <Chip label={mediumName} key={mediumName} />
-                                        )
-                                    })}
-                                </Stack>
-        
+
+                            <Stack direction="row" spacing={1} sx={{ m: 2 }}>
+                                <Typography variant="body2" color="text.secondary" component="div">
+                                    <label>Medium :</label>
+                                </Typography>
+                                {this.state.cardData.medium.map(mediumName => {
+                                    return (
+                                        <Chip label={mediumName} key={mediumName} />
+                                    )
+                                })}
+                            </Stack>
+
                             <Typography variant="h6" color="text.secondary" sx={{ m: 2 }} component="div">
                                 <label>Price : </label>
                                 {this.state.cardData.price}
@@ -202,15 +195,12 @@ export default class Read extends React.Component {
             "comment": this.state.commentNote
         }
         let response = await axios.post(BASE_URL + 'create/comment', reqBody);
-        console.log(response);
 
         let params = {
             "id": this.state.currentArtworkId
         }
         //retrieve comment code
         let commentResponse = await axios.get(BASE_URL + "retrieve/comment", { params });
-        console.log(commentResponse);
-        console.log(this.state.commentData);
 
         this.setState({
             commentData: commentResponse.data.art_space,
@@ -220,8 +210,28 @@ export default class Read extends React.Component {
 
     }
 
+    checkPasswordForEdit = async (password) => {
+        this.setState({
+            correctPassword: true
+        })
+    
+        let response = await axios.get(BASE_URL + 'retrieve/password/' + this.state.currentArtWorkData._id + '/' + password);
+        if (response.data.result) {
+            this.props.triggerEdit(this.state.currentArtWorkData);
+
+        } else {
+            this.setState({
+                correctPassword: false
+            })
+        }
+
+    }
+
 
     checkPassword = async (password) => {
+        this.setState({
+            correctPassword: true
+        })
         let response = await axios.get(BASE_URL + 'retrieve/password/' + this.state.cardData._id + '/' + password)
         if (response.data.result) {
             let deleteResponse = await axios.delete(BASE_URL + 'delete/artwork/' + this.state.cardData._id + '/' + password)
@@ -230,13 +240,16 @@ export default class Read extends React.Component {
                 this.setInactive('block')
                 this.setState({
                     open: false,
-                    currentArtworkId: ""
+                    currentArtworkId: "",
+                    comfirmPassword: ""
                 })
                 let myBoolean = true;
                 this.props.refreshData(myBoolean);
             }
         } else {
-            console.log("false check password")
+            this.setState({
+                correctPassword: false
+            })
         }
     }
 
@@ -274,7 +287,9 @@ export default class Read extends React.Component {
         this.setState({
             hide: "flex",
             hideComment: 'block',
-            open: false
+            open: false,
+            openEdit: false,
+            currentArtWorkData: {}
         })
     }
 
@@ -290,8 +305,6 @@ export default class Read extends React.Component {
         }
         //retrieve comment code
         let commentResponse = await axios.get(BASE_URL + "retrieve/comment", { params });
-        console.log(commentResponse);
-
         commentResponse = commentResponse || []
 
         this.setState({
@@ -306,8 +319,46 @@ export default class Read extends React.Component {
     }
 
     setEdit = (data) => {
-        this.props.triggerEdit(data);
+        console.log(data)
+        this.setState({
+            openEdit: true,
+            currentArtWorkData: data
+        })
+        // this.props.triggerEdit(data);
+
     }
+
+    renderDialogBox() {
+        return (
+            <React.Fragment>
+                <DialogTitle>Edit Confirmation</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Please input password to Edit your artwork
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Password"
+                        type="password"
+                        fullWidth
+                        variant="standard"
+                        onChange={this.updateReadFormField}
+                        name="comfirmPassword"
+                        value={this.state.comfirmPassword}
+                        error={!this.state.correctPassword}
+                        helperText={!this.state.correctPassword ? "wrong password" : ""}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => this.closeDialog()}>Cancel</Button>
+                    <Button onClick={() => this.checkPasswordForEdit(this.state.comfirmPassword)}>Sumbit</Button>
+                </DialogActions>
+            </React.Fragment>
+        )
+    }
+
 
     render() {
         return (
@@ -315,6 +366,9 @@ export default class Read extends React.Component {
                 {this.props.data.art_space ?
                     <Box>
                         {this.renderArtWorkReadPage()}
+                        <Dialog open={this.state.openEdit} onClose={() => this.closeDialog()} >
+                            {this.renderDialogBox()}
+                        </Dialog>
                         <Grid container sx={{ display: this.state.show, justifyContent: 'space-around' }}>
                             {this.props.data.art_space.map(data => {
                                 return (
