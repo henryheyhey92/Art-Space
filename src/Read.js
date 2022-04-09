@@ -123,6 +123,18 @@ export default class Read extends React.Component {
                                 sx={{ objectFit: "contain", height: 300 }}
                             />
                             <Typography variant="body2" color="text.secondary" sx={{ m: 2 }} component="div">
+                                <label>Artist Name :</label>
+                                {this.state.cardData.artist.name}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary" sx={{ m: 2 }} component="div">
+                                <label>Contact Number :</label>
+                                {this.state.cardData.artist.contact_no}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary" sx={{ m: 2 }} component="div">
+                                <label>Email :</label>
+                                {this.state.cardData.artist.email}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary" sx={{ m: 2 }} component="div">
                                 <label>Description :</label>
                                 {this.state.cardData.description}
                             </Typography>
@@ -307,7 +319,7 @@ export default class Read extends React.Component {
         //retrieve comment code
         let commentResponse = await axios.get(BASE_URL + "retrieve/comment", { params });
         commentResponse = commentResponse || []
-
+        console.log(data)
         this.setState({
             activeArtwork: "ShowOne",
             show: "none",
