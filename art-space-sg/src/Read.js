@@ -115,8 +115,9 @@ export default class Read extends React.Component {
                             </Box>
                             <Typography gutterBottom
                                 variant="h5"
-                                component=""
-                                sx={{ m: 2 }}>
+                                component="span"
+                                sx={{ m: 2 }}
+                                >
                                 {this.state.cardData.name}
                             </Typography>
                             <CardMedia
@@ -128,17 +129,17 @@ export default class Read extends React.Component {
                                 alt="green iguana"
                                 sx={{ objectFit: "contain", height: 300 }}
                             />
-                            <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
+                            <Typography variant="body2" color="text.secondary" sx={{ m: 2 }} component="div">
                                 <label>Description :</label>
                                 {this.state.cardData.description}
                             </Typography>
-                            <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
+                            <Typography variant="body2" color="text.secondary" sx={{ m: 2 }} component="div">
                                 <label>Category :</label>
                                 <Chip label={this.state.cardData.category} />
                             </Typography>
                             
                                 <Stack direction="row" spacing={1} sx={{ m: 2 }}>
-                                    <Typography variant="body2" color="text.secondary">
+                                    <Typography variant="body2" color="text.secondary" component="div">
                                         <label>Medium :</label>
                                     </Typography>
                                     {this.state.cardData.medium.map(mediumName => {
@@ -148,11 +149,11 @@ export default class Read extends React.Component {
                                     })}
                                 </Stack>
         
-                            <Typography variant="h6" color="text.secondary" sx={{ m: 2 }}>
+                            <Typography variant="h6" color="text.secondary" sx={{ m: 2 }} component="div">
                                 <label>Price : </label>
                                 {this.state.cardData.price}
                             </Typography>
-                            <Typography variant="body2" color="text.secondary" sx={{ m: 2 }}>
+                            <Typography variant="body2" color="text.secondary" sx={{ m: 2 }} component="div">
                                 <label>Last Updated Time Stamp : </label>
                                 {this.retrieveDate(this.state.cardData.last_time_stamp)}
                             </Typography>
@@ -327,10 +328,10 @@ export default class Read extends React.Component {
                                                 image={data.image_link}
                                                 alt="green iguana" />
                                             <CardContent sx={{ height: 100 }} key={data.name}>
-                                                <Typography gutterBottom variant="h5" component="">
+                                                <Typography gutterBottom variant="h5" component="div">
                                                     {data.name}
                                                 </Typography>
-                                                <Typography variant="body2" color="text.secondary">
+                                                <Typography variant="body2" color="text.secondary" component="div">
                                                     {data.description}
                                                 </Typography>
                                             </CardContent>
