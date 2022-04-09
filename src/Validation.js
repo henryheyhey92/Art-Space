@@ -86,7 +86,7 @@ export const validateEmail = (email) => {
 
     if(email === ""){
         return [false, "* email is required"]
-    }else if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    }else if (/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/.test(email)) {
         return [true, ""]
     } else {
         return [false , "* invalid email, email must contain special character"]

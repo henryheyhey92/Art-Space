@@ -1,12 +1,7 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 
-
-const Input = styled('input')({
-    display: 'none',
-});
 
 export default class CommentsInput extends React.Component {
     

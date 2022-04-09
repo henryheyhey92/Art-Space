@@ -194,7 +194,8 @@ export default class Read extends React.Component {
             "artwork_id": this.state.cardData._id,
             "comment": this.state.commentNote
         }
-        let response = await axios.post(BASE_URL + 'create/comment', reqBody);
+        
+        await axios.post(BASE_URL + 'create/comment', reqBody);
 
         let params = {
             "id": this.state.currentArtworkId
