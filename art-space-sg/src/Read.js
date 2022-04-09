@@ -115,7 +115,7 @@ export default class Read extends React.Component {
                             </Box>
                             <Typography gutterBottom
                                 variant="h5"
-                                component="div"
+                                component=""
                                 sx={{ m: 2 }}>
                                 {this.state.cardData.name}
                             </Typography>
@@ -136,7 +136,7 @@ export default class Read extends React.Component {
                                 <label>Category :</label>
                                 <Chip label={this.state.cardData.category} />
                             </Typography>
-                            <div sx={{ m: 2 }}>
+                            
                                 <Stack direction="row" spacing={1} sx={{ m: 2 }}>
                                     <Typography variant="body2" color="text.secondary">
                                         <label>Medium :</label>
@@ -147,7 +147,7 @@ export default class Read extends React.Component {
                                         )
                                     })}
                                 </Stack>
-                            </div>
+        
                             <Typography variant="h6" color="text.secondary" sx={{ m: 2 }}>
                                 <label>Price : </label>
                                 {this.state.cardData.price}
@@ -312,7 +312,7 @@ export default class Read extends React.Component {
         return (
             <React.Fragment>
                 {this.props.data.art_space ?
-                    <div>
+                    <Box>
                         {this.renderArtWorkReadPage()}
                         <Grid container sx={{ display: this.state.show, justifyContent: 'space-around' }}>
                             {this.props.data.art_space.map(data => {
@@ -327,7 +327,7 @@ export default class Read extends React.Component {
                                                 image={data.image_link}
                                                 alt="green iguana" />
                                             <CardContent sx={{ height: 100 }} key={data.name}>
-                                                <Typography gutterBottom variant="h5" component="div">
+                                                <Typography gutterBottom variant="h5" component="">
                                                     {data.name}
                                                 </Typography>
                                                 <Typography variant="body2" color="text.secondary">
@@ -343,7 +343,7 @@ export default class Read extends React.Component {
                                         </Card>
                                     </Grid>
                                 )
-                            })} </Grid> </div> :
+                            })} </Grid> </Box> :
                     <Box sx={{ display: 'flex', size: "100", justifyContent: "center", mt: 30, thickness: 10 }}>
                         <CircularProgress />
                     </Box>
