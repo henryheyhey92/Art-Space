@@ -25,6 +25,8 @@ The aim of users is to post their self-made artworks to the website and showcase
 
 3. As a user, I want viewers to be able to add review or comments to my artwork, so that I will be able to know what i can further improve on  
 
+4. As a user, I would like to have a platform where I can promote my artwork, so that I can make income/passive income with my work. 
+
 # Content
 
 1. [Design, UI, and UX](#1-design-ui-and-ux)
