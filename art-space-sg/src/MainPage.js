@@ -183,17 +183,24 @@ export default class MainPage extends React.Component {
             "password": this.state.password,
             "price": parseInt(this.state.price)
         }
-        let response = await axios.put(BASE_URL + 'update/artwork/' + this.state.objectId, data);
-        console.log("for update log");
-        console.log(response);
-        let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
-        this.setState({
-            active: 'main',
-            show: 'block',
-            data: refreshData.data,
-            editbuttonflag: false
-        })
-        this.setState(initialState)
+
+        console.log(this.validation(data))
+
+        if(this.validation(data)){
+            let response = await axios.put(BASE_URL + 'update/artwork/' + this.state.objectId, data);
+            console.log("for update log");
+            console.log(response);
+            let refreshData = await axios.get(BASE_URL + 'retrieve/artwork');
+            this.setState({
+                active: 'main',
+                show: 'block',
+                data: refreshData.data,
+                editbuttonflag: false
+            })
+            this.setState(initialState)
+        }
+
+       
     }
 
     updateFormData = (childData) => {
