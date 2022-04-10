@@ -72,7 +72,7 @@ _Non-functional requirements_
 
 * The following is the art space sg application structure diagram
 
-<img src='image/structure.png' style="display: block; width: 100%"><br>
+<img src='src/image/structure.png' style="display: block; width: 100%"><br>
 
 * The application will retrieve artwork data from mongo database and display it at the front page of the application.
 
