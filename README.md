@@ -10,7 +10,8 @@
 
 **Context**
 
-The Art Space SG is a mobile-responsive, single page web application that allows creative individual to upload their artwork to online, views, search and promote. There are various different kind of artwork and medium for viewer to explore. There are online portal for artist across the world to share their creative content. However, the vast amount of information on internet makes it hard for user to narrow search for Singaporean made artwork. Singaporean could only make paid visit to physical galleries or wait for yearly routine online art showcase. Thus, the application would 
+The Art Space SG is a mobile-responsive, single page web application that allows creative individual to upload their artwork to online, views, search and promote. There are various different kind of artwork and medium for viewer to explore. There are online portal for artist across the world to share their creative content. However, the vast amount of information on internet makes it hard for user to narrow search for Singaporean made artwork. Singaporean could only make paid visit to physical galleries or wait for yearly routine online art showcase. 
+
 To ease the above pain point, the application would bring gallery to user’s doorstep and is 24/7 experience. 
 
 
@@ -26,7 +27,7 @@ To ease the above pain point, the application would bring gallery to user’s do
 
 # 1. Design, UI, and UX
 
-### Figma File with the wireframe and high fidelity prototype of the application can be found at the link below:
+### Figma File with the wireframe prototype, can be found at the link below:
 
 [https://www.figma.com/file/UanLFi4XjQ9GSqnMLRsjgq/Material-2-Design-Henry?node-id=1011%3A3346](https://www.figma.com/file/UanLFi4XjQ9GSqnMLRsjgq/Material-2-Design-Henry?node-id=1011%3A3346)
 
@@ -82,7 +83,7 @@ _Non-functional requirements_
 
 * When user click on any artwork's edit button, it will lead to the a popout for enter password. If the enter password matches the password store in backend, the edit form page would be shown. 
 
-* When user click on any artwork's learn more button, it will lead user to the read page. The read page would show more in depth details about the artwork. The owner of the artwork also have a choice to delete their artwork from art space. By clicking the delete button in the read page, a popout for password would appear and if the input password matches the one in database, artwork will be deleted.
+* When user click on any artwork's learn more button, it will lead user to the read page. The read page would show more in depth details about the artwork. The owner of the artwork would have choice to delete their artwork from art space. By clicking the delete button in the read page, a popout for password would appear and if the input password matches the one in database, artwork will be deleted.
 
 * In the read page, user can enter their comments in the description box and add it to the artwork's read page. When the artwork is deleted, the comments will be deleted as well.
 
@@ -133,8 +134,8 @@ here is the link fo [Project2_DB](https://github.com/henryheyhey92/ArtSpace_DB)
 
 | Feature                      | Description                            |
 | ---------------------------- | -------------------------------------- |
+| onboarding                   | in-app tutorial animation to guide user| 
 | Better Routing               | Using the hooks feature in react       |
-| Photo Upload                 | methods to upload photo                |
 | Improve the structure of the code base  | Improve overall workflow of the codebase for Readability and better coding standard  |
 
 
