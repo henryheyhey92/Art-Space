@@ -23,7 +23,7 @@ import CommentsOutput from './CommentsOutput';
 
 
 const BASE_URL = "https://hl-art-space.herokuapp.com/"
-// const BASE_URL = "https://3000-henryheyhey92-artspacedb-fcgyjiweags.ws-us38.gitpod.io/"
+// const BASE_URL = "https://3001-henryheyhey92-artspacedb-6hqkg79gyai.ws-us39.gitpod.io/"
 
 
 export default class Read extends React.Component {
@@ -307,7 +307,7 @@ export default class Read extends React.Component {
     }
 
     setActive = async (data) => {
-        console.log(data._id)
+        // console.log(data._id)
 
         this.setState({
             currentArtworkId: data._id
@@ -332,7 +332,7 @@ export default class Read extends React.Component {
     }
 
     setEdit = (data) => {
-        console.log(data)
+        // console.log(data)
         this.setState({
             openEdit: true,
             currentArtWorkData: data
