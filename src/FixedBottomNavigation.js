@@ -6,7 +6,9 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import Paper from '@mui/material/Paper';
 import List from '@mui/material/List';
-
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 export default function FixedBottomNavigation() {
   const [value, setValue] = React.useState(0);
@@ -20,17 +22,17 @@ export default function FixedBottomNavigation() {
   // renderView = () => {
 
   // }
-  function triggerSearchUI(){
-   
+  function triggerSearchUI() {
+
   }
 
   return (
-    <Box sx={{ pb: 7 }} ref={ref}>
+    <Box ref={ref}>
       <CssBaseline />
       <List>
         {value ? console.log(value) : console.log(value)}
       </List>
-      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, display:'flex', justifyContent: 'center', width: '100%',  }} elevation={3}>
+      <Paper sx={{ position: 'sticky', bottom: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center', width: '100%', }} elevation={3}>
         <BottomNavigation
           showLabels
           value={value}
@@ -38,9 +40,19 @@ export default function FixedBottomNavigation() {
             setValue(newValue);
           }}
         >
-          <BottomNavigationAction label="Search" 
-                                  icon={<SearchSharpIcon />}
-                                  onClick={triggerSearchUI()} />
+          <BottomNavigationAction label="Github"
+            icon={<GitHubIcon />}
+            onClick={triggerSearchUI()} />
+          <BottomNavigationAction label="LinkedIn"
+            icon={<LinkedInIcon />}
+            onClick={triggerSearchUI()} />
+          <BottomNavigationAction label="Facebook"
+            icon={<FacebookIcon />}
+            onClick={triggerSearchUI()} />
+          <BottomNavigationAction label="Search"
+            icon={<SearchSharpIcon />}
+            onClick={triggerSearchUI()} />
+
         </BottomNavigation>
       </Paper>
     </Box>
