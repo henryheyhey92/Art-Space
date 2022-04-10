@@ -1,7 +1,7 @@
 # Project 02 - React Art Space SG
 
 <div >
-  <img src='images/art-space.png' style='display:block, width: 100%'><br>
+  <img src='image/art-space.png' style='display:block, width: 100%'><br>
 </div>
 
 
