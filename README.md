@@ -88,6 +88,14 @@ _Non-functional requirements_
 * In the read page, user can enter their comments in the description box and add it to the artwork's read page. When the artwork is deleted, the comments will be deleted as well.
 
 
+### **Surface**
+
+1. White background color is used to as it allows different material UI component to be blended in nicely. 
+
+2. Grape Nuts and Lobster fonts are use in the main page of the application. I personally find the two cursive font would enhance the visual and aesthetic to the look of the web application. 
+
+3. The subpages of the application uses the default MUI fonts
+
 # 2. Technologies used
 
 - [React](https://reactjs.org/)
@@ -111,6 +119,9 @@ _Non-functional requirements_
 
 The project uses material UI for the textfield, dropdown, checkbox, radio button, form validation, mobile responsive
 
+- [Google Font](https://fonts.google.com/) and material ui typography
+
+The project uses google fonts and material ui typography for fonts
 
 
 # 3. Backend API
