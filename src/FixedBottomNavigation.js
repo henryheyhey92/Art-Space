@@ -32,7 +32,7 @@ export default function FixedBottomNavigation() {
       <List>
         {value ? console.log(value) : console.log(value)}
       </List>
-      <Paper sx={{ position: 'sticky', bottom: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center', width: '100%', }} elevation={3}>
+      <Paper sx={{ position: 'static', bottom: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center', width: '100%', }} elevation={3}>
         <BottomNavigation
           showLabels
           value={value}
