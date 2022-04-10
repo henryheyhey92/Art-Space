@@ -27,7 +27,7 @@ The Art Space SG is a mobile-responsive, single page web application that allows
 
 ### Figma File with the wireframe and high fidelity prototype of the application can be found at the link below:
 
-https://www.figma.com/file/UanLFi4XjQ9GSqnMLRsjgq/Material-2-Design-Henry?node-id=1011%3A3346
+[https://www.figma.com/file/UanLFi4XjQ9GSqnMLRsjgq/Material-2-Design-Henry?node-id=1011%3A3346](https://www.figma.com/file/UanLFi4XjQ9GSqnMLRsjgq/Material-2-Design-Henry?node-id=1011%3A3346)
 
 ### **Strategy**
 
@@ -149,7 +149,7 @@ The API documentation can be found at [/api-docs](https://ps-project02-express.h
 This project is deployed on Netlify. The deployed version can be found at the link below:
 
 ```
-Link: https://endearing-sopapillas-ef68c6.netlify.app/
+Link: [https://endearing-sopapillas-ef68c6.netlify.app/](https://endearing-sopapillas-ef68c6.netlify.app/)
 
 ```
 
