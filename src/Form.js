@@ -16,7 +16,7 @@ import TextField from '@mui/material/TextField';
 import { FormGroup } from 'react-bootstrap';
 import FormHelperText from '@mui/material/FormHelperText';
 
-const sexSelection = [
+const genderSelection = [
     {
         'name': "male",
         'value': "male"
@@ -30,7 +30,7 @@ const sexSelection = [
 export default function Form(props) {
 
     function renderSex() {
-        return sexSelection.map(o => {
+        return genderSelection.map(o => {
             return <MenuItem key={o.value}
                 value={o.value}
                 name={o.name}
