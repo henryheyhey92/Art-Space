@@ -10,7 +10,7 @@
 
 **Context**
 
-The Art Space SG is a mobile-responsive, single page web application that allows creative individual to upload their artwork to online, views, search and promote. There are various different kind of artwork and medium for viewer to explore. There are online portal for artist across the world to share their creative content. However, the vast amount of information on internet makes it hard for user to narrow search for Singaporean made artwork. Singaporean could only make paid visit to physical galleries or wait for yearly routine online art showcase. 
+The Art Space SG is a mobile-responsive, single page web application that allows creative individuals to upload their artwork to online, views, search and promote. There are various different kind of artwork and medium for viewer to explore. There are online portal for artist across the world to share their creative content. However, the vast amount of information on internet makes it hard for user to narrow search for Singaporean made artwork. Singaporean could only make paid visits to physical galleries or wait for yearly routine online art showcase. 
 
 To ease the above pain point, the application would bring gallery to user’s doorstep and is 24/7 experience. 
 
