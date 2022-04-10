@@ -176,5 +176,7 @@ Link: [https://endearing-sopapillas-ef68c6.netlify.app/](https://endearing-sopap
 
 * The material UI used for the UI layout, transition animation and validation animation 
 
+* all material uses in this project are for academic purposes
+
 
 

@@ -204,7 +204,7 @@ export default function Form(props) {
                         helperText={props.errorForm.contact[1]}
                     />
                      <TextField id="create-edit-password"
-                        label="password"
+                        label="set password for artwork post"
                         variant="outlined"
                         name='password'
                         value={props.password}
