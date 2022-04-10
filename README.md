@@ -1,8 +1,9 @@
 # Project 02 - React Art Space SG
 
 <div style="display: flex;  ">
+  <img src='images/art-space.png' style='display:block'><br>
 </div>
-<img src='images/' style='display:block'><br>
+
 
 
 ## Project Summary
@@ -116,8 +117,6 @@ The project uses material UI for the textfield, dropdown, checkbox, radio button
 This project uses a custom restful API to retrieve and display artwork information. The backend application is hosted on Heroku and is accessible from the front-end. The API is built using Node.js and Express.js. 
 
 
-The API documentation can be found at [/api-docs](https://ps-project02-express.herokuapp.com/api-docs/) endpoint.
-
 # 4. Future Features to Implement
 
 ## 4.1 Additional Features to be implemented in the future
@@ -126,7 +125,7 @@ The API documentation can be found at [/api-docs](https://ps-project02-express.h
 | ------------------------------ | ----------------------------------------------------------------------- |
 | Login/Signup                   | User can login/signup to the application.                               |
 | Photo Upload                   | User can upload photos of the artworks instead of using url link        |
-| Search Autocomplete            | Suggestions for search autocomplete is provided based on the api query. |
+| Search Autocomplete            | Suggestions for search autocomplete |
 
 
 ## 4.2 Feature fixes to be implemented in the future
@@ -148,20 +147,21 @@ The API documentation can be found at [/api-docs](https://ps-project02-express.h
 
 This project is deployed on Netlify. The deployed version can be found at the link below:
 
-```
+
 Link: [https://endearing-sopapillas-ef68c6.netlify.app/](https://endearing-sopapillas-ef68c6.netlify.app/)
 
-```
+
 
 # 7. Acknowledgemnts and Credits
 
-```
-The images used in the project is artwork done by myself and from the pexels.com
 
-Paul's code in the react lab were used as references 
+* The images used in the project is artwork done by myself and from the pexels.com
 
+* Paul's code in the react lab were used as references 
 
+* Axios cdn was used for retrieving data.
 
-```
+* The material UI used for the UI layout, transition animation and validation animation 
+
 
 
