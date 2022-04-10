@@ -116,6 +116,7 @@ The project uses material UI for the textfield, dropdown, checkbox, radio button
 
 This project uses a custom restful API to retrieve and display artwork information. The backend application is hosted on Heroku and is accessible from the front-end. The API is built using Node.js and Express.js. 
 
+here is the link fo [Project2_DB](https://github.com/henryheyhey92/ArtSpace_DB)
 
 # 4. Future Features to Implement
 
@@ -141,7 +142,7 @@ This project uses a custom restful API to retrieve and display artwork informati
 
  The project is developed using a combination of manual testing. The testing done for the critical functionality of this project is documented at the link below:
 
-
+Link : [https://docs.google.com/spreadsheets/d/1F_I_k4V71amvCwd0-54xw2j1I6ho-cmw6LTu7NA9ycw/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1F_I_k4V71amvCwd0-54xw2j1I6ho-cmw6LTu7NA9ycw/edit?usp=sharing)
 
 # 6. Deployment
 
