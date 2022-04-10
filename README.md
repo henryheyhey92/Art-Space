@@ -46,7 +46,7 @@ The aim of users is to post their self-made artworks to the website and showcase
 **User Stories**
 
 1. As a user, I want to be able to upload my artwork to internet. so that i can showcase my artwork on the virtual ground.
-   Acceptance Criteria: The artwork must be original and no plagiarism act is allow. The artwork url url must be a valid url.
+   Acceptance Criteria: The artwork must be original and no plagiarism act is allow. The artwork url must be a valid url.
 
 2. As a user, I want to be able to edit/amend my artwork description details and upload to the website again.
 
