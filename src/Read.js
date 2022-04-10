@@ -404,7 +404,7 @@ export default class Read extends React.Component {
                                                     </Box>
                                                 </Typography> */}
                                             </CardContent>
-                                            <CardActions sx={{mt: 1}} key={data.price}>
+                                            <CardActions sx={{mt: 4, mb:2}} key={data.price}>
                                                 <Button size="small"
                                                     onClick={() => this.setEdit(data)}>Edit</Button>
                                                 <Button size="small"
