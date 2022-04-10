@@ -27,7 +27,7 @@ import SearchBar from './SearchBar';
 
 export default function ResponsiveAppBar() {
 
-  const pages = ['Filter', 'Pricing', 'Blog'];
+  const pages = ['Filter', 'Contact', 'Github'];
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -129,7 +129,7 @@ export default function ResponsiveAppBar() {
               variant="h6"
               noWrap
               component="div"
-              sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+              sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, fontFamily: "Grape Nuts, cursive", fontSize: "2rem" }}
             >
               ART SPACE
             </Typography>
@@ -177,7 +177,7 @@ export default function ResponsiveAppBar() {
               variant="h6"
               noWrap
               component="div"
-              sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+              sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, fontFamily: "Grape Nuts, cursive", fontSize: "2rem" }}
             >
               ART SPACE
             </Typography>
@@ -189,7 +189,7 @@ export default function ResponsiveAppBar() {
                   onClick={page === "Filter" ?
                     handleDrawerOpen : handleCloseNavMenu}
 
-                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  sx={{ my: 2, color: 'white', display: 'block', fontFamily: "Grape Nuts, cursive", fontSize: "1rem" }}
                 >
                   {page}
                 </Button>
